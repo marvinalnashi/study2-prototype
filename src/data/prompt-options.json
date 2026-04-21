@@ -27,25 +27,13 @@
     "id": "p-s2-1",
     "scenarioId": "s2",
     "label": "S2 · Draft a response involving internal salary data",
-    "prompt": "Draft a response to a manager who asked for a quick summary of role-based salary differences using internal HR data.",
-    "responses": {
-      "brief": "This request involves sensitive HR data. I can help draft a safe response structure, but the final wording should be validated against policy before sharing.",
-      "standard": "This request involves sensitive HR data. A safe starting point is to avoid exposing named or traceable salary information. I can help draft a response that stays aggregated and policy-aligned, but it should be reviewed before use.",
-      "guided": "This request appears sensitive because it uses internal HR salary information. A safer route is to summarise patterns only at an aggregated level, avoid any identifiable detail, and add a review step before sending. I can help structure that response, but the organisation’s HR / privacy rules should determine what is actually shareable.",
-      "audit": "Sensitive-context draft support:\n1. Risk trigger detected: internal HR salary data.\n2. Recommended safe framing: use aggregated, role-level patterns only; remove identifiable or inferable details.\n3. Human review required: HR / policy check before sharing.\n4. Output stance: I can draft a cautious summary scaffold, but I should not produce a directly sendable answer without policy confirmation."
-    }
+    "prompt": "Draft a response to a manager who asked for a quick summary of role-based salary differences using internal HR data."
   },
   {
     "id": "p-s2-2",
     "scenarioId": "s2",
     "label": "S2 · Summarise a compliance policy for external sharing",
-    "prompt": "Summarise the policy conditions under which internal documentation may be shared with an external vendor.",
-    "responses": {
-      "brief": "I can summarise the policy, but this request may require confirmation of scope, document type, and approval path before the answer is safe to use.",
-      "standard": "I can summarise the policy, but I first need to clarify the document type, intended vendor role, and whether approval or redaction is required. Without that, the answer may be over-broad.",
-      "guided": "Before answering, I would clarify what kind of documentation is involved, who the external recipient is, what the purpose of sharing is, and whether approval or redaction rules apply. Those checks reduce the risk of giving an answer that sounds complete but ignores a crucial governance condition.",
-      "audit": "Preflight-style response:\n- Clarify scope: what documentation, which vendor, and for what purpose?\n- Clarify constraints: approval requirements, redaction obligations, and retention / transfer conditions.\n- Risk note: a generic answer may be misleading because different document classes often have different sharing rules.\n- Recommendation: confirm the context before generating a final summary."
-    }
+    "prompt": "Summarise the policy conditions under which internal documentation may be shared with an external vendor."
   },
   {
     "id": "p-s3-1",
@@ -74,25 +62,15 @@
   {
     "id": "p-s4-1",
     "scenarioId": "s4",
-    "label": "S4 · Turn meeting notes into a workshop outline",
-    "prompt": "Turn the meeting notes into a structured workshop outline with clear sections, timings, and next steps.",
-    "responses": {
-      "brief": "Instead of a long chat answer, this should become a structured workshop outline the user can immediately reuse.",
-      "standard": "A better output here is a structured work artefact: title, objectives, agenda blocks, timings, materials, and next steps. That moves the task forward faster than a plain chat summary.",
-      "guided": "For this type of request, a work artefact composer should transform the notes into a deliverable with sections such as workshop goal, target audience, agenda, timings, facilitation notes, and immediate follow-up actions. That saves the user from manually reformatting a long response.",
-      "audit": "Deliverable-first answer:\n- Output type: workshop outline, not prose-only chat.\n- Suggested sections: objectives, audience, timings, activity sequence, materials, and decisions / next steps.\n- Benefit: the user can directly refine a usable artefact instead of extracting structure from unorganised text."
-    }
+    "label": "S4 · Turn meeting notes into a workshop outline document",
+    "prompt": "Turn the meeting notes into a structured workshop outline document that I can revise and download.",
+    "artefactKind": "document"
   },
   {
     "id": "p-s4-2",
     "scenarioId": "s4",
     "label": "S4 · Create a presentation outline for executives",
-    "prompt": "Create an executive presentation outline from the project update and organise it as a reusable deliverable.",
-    "responses": {
-      "brief": "This should become a presentation-ready outline with a title, key messages, slide structure, and next-step prompts.",
-      "standard": "For executive communication, the best output is a structured deliverable rather than a long answer in chat. It should include slide titles, the main message per slide, and a suggested flow from context to decision to next step.",
-      "guided": "A work artefact composer would be useful here because it can package the update into a presentation skeleton: title slide, project context, progress, key risks, decisions needed, and next actions. That gives the user a concrete artefact to edit instead of a purely conversational answer.",
-      "audit": "Executive artefact pattern:\n1. Deliver a reusable slide outline, not a prose response.\n2. Keep each slide anchored on one decision-relevant message.\n3. Distinguish background, current state, risk, and requested decision.\n4. Leave room for later formatting / visualisation without losing the work structure."
-    }
+    "prompt": "Create an executive presentation outline from the project update and organise it as a reusable deck.",
+    "artefactKind": "presentation"
   }
 ]

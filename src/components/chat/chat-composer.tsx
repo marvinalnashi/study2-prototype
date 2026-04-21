@@ -1,7 +1,7 @@
 import { promptOptions } from "@/lib/prototype-data";
 import { Button } from "@/components/ui/button";
 import type { ScenarioId } from "@/types/prototype";
-import { SendHorizontal, RotateCcw, ChevronRight } from "lucide-react";
+import { ChevronRight, RotateCcw, SendHorizontal } from "lucide-react";
 
 export function ChatComposer({
   scenarioId,
@@ -16,6 +16,8 @@ export function ChatComposer({
   onSend: () => void;
   onReset: () => void;
 }) {
+  const scenarioPrompts = promptOptions.filter((item) => item.scenarioId === scenarioId);
+
   return (
     <div className="border-t border-white/10 bg-slate-950/70 px-4 py-3 backdrop-blur-xl sm:px-5">
       <div className="rounded-3xl border border-white/10 bg-white/5 p-3 shadow-[0_12px_40px_rgba(15,23,42,0.25)]">
@@ -23,7 +25,7 @@ export function ChatComposer({
           <div>
             <div className="text-sm font-medium text-slate-100">Hardcoded prompt selector</div>
             <p className="text-xs text-slate-400">
-              The participant chooses from predefined prompts instead of free text.
+              Only prompts for the currently selected scenario are shown.
             </p>
           </div>
           <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
@@ -38,44 +40,13 @@ export function ChatComposer({
             className="h-11 w-full min-w-0 rounded-2xl border border-white/10 bg-slate-950/60 px-4 text-sm text-slate-100 outline-none ring-0 transition focus:border-violet-400/40"
           >
             <option value="" disabled>
-              Select a prompt to simulate a walkthrough branch
+              Select one of the walkthrough prompts for this scenario
             </option>
-            <optgroup label="Scenario 1 · Ambiguous request">
-              {promptOptions
-                .filter((item) => item.scenarioId === "s1")
-                .map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.label}
-                  </option>
-                ))}
-            </optgroup>
-            <optgroup label="Scenario 2 · Sensitive request">
-              {promptOptions
-                .filter((item) => item.scenarioId === "s2")
-                .map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.label}
-                  </option>
-                ))}
-            </optgroup>
-            <optgroup label="Scenario 3 · Evidence-heavy request">
-              {promptOptions
-                .filter((item) => item.scenarioId === "s3")
-                .map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.label}
-                  </option>
-                ))}
-            </optgroup>
-            <optgroup label="Scenario 4 · Output generation">
-              {promptOptions
-                .filter((item) => item.scenarioId === "s4")
-                .map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.label}
-                  </option>
-                ))}
-            </optgroup>
+            {scenarioPrompts.map((item) => (
+              <option key={item.id} value={item.id}>
+                {item.label}
+              </option>
+            ))}
           </select>
 
           <div className="flex flex-wrap gap-2 lg:justify-end">

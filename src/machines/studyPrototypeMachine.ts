@@ -1,7 +1,22 @@
-import { setup, assign } from "xstate";
-import { adaptationStates, promptMap, promptOptions, scenarioMap, scenarios } from "@/lib/prototype-data";
+import { assign, setup } from "xstate";
+import {
+  adaptationStates,
+  promptMap,
+  scenarioMap,
+  scenarios,
+  workArtefactOptions,
+} from "@/lib/prototype-data";
 import { createId } from "@/lib/utils";
-import type { ChatMessage, DetailLevel, RolePersona, ScenarioId } from "@/types/prototype";
+import type {
+  ArtefactPayload,
+  ChatMessage,
+  DetailLevel,
+  DocumentArtefactPayload,
+  IntentFramingSelection,
+  PresentationArtefactPayload,
+  RolePersona,
+  ScenarioId,
+} from "@/types/prototype";
 
 const defaultScenarioId: ScenarioId = "s1";
 const defaultRolePersona: RolePersona = "new_hire";
@@ -43,26 +58,100 @@ function applyRoleAwareFraming({
   return `New-hire framing:\n${base}\n\nAdd small definitions and orient the user before moving into the main answer.`;
 }
 
+function labelFromList(list: Array<{ id: string; label: string }>, id: string) {
+  return list.find((item) => item.id === id)?.label ?? id;
+}
+
+function buildSensitiveResponse(framing: IntentFramingSelection | null) {
+  const defaults = {
+    goal: workArtefactOptions.intentFraming.goals[0]?.id ?? "reply-manager",
+    audience: workArtefactOptions.intentFraming.audiences[0]?.id ?? "internal-manager",
+    constraints: workArtefactOptions.intentFraming.constraints[0]?.id ?? "aggregate-only",
+    allowedSources: workArtefactOptions.intentFraming.allowedSources[0]?.id ?? "internal-policy",
+    requestedOutput: workArtefactOptions.intentFraming.requestedOutputs[0]?.id ?? "email-draft",
+  };
+
+  const selected = { ...defaults, ...(framing ?? {}) };
+
+  const goal = labelFromList(workArtefactOptions.intentFraming.goals, selected.goal);
+  const audience = labelFromList(workArtefactOptions.intentFraming.audiences, selected.audience);
+  const constraints = labelFromList(workArtefactOptions.intentFraming.constraints, selected.constraints);
+  const allowedSources = labelFromList(workArtefactOptions.intentFraming.allowedSources, selected.allowedSources);
+  const requestedOutput = labelFromList(workArtefactOptions.intentFraming.requestedOutputs, selected.requestedOutput);
+
+  const content = [
+    `Preflight framing applied before answering:`,
+    `• Goal: ${goal}`,
+    `• Audience: ${audience}`,
+    `• Constraint: ${constraints}`,
+    `• Allowed sources: ${allowedSources}`,
+    `• Requested output: ${requestedOutput}`,
+    "",
+    "Recommended assistant response:",
+    `I can support this request, but only within the framing above. I will stay within ${constraints.toLowerCase()}, rely on ${allowedSources.toLowerCase()}, and produce a ${requestedOutput.toLowerCase()} for ${audience.toLowerCase()}. Before this is used operationally, it should still be reviewed by the relevant owner.`
+  ].join("\n");
+
+  const meta = `A06 framing active · Uncertainty cue: medium · Freshness cue: verify against current policy version.`;
+
+  return { content, meta };
+}
+
+function buildPresentationArtefact(): PresentationArtefactPayload {
+  return {
+    type: "presentation",
+    fileName: "executive-presentation-draft.pptx",
+    artefactLabel: "Executive presentation draft",
+    slides: structuredClone(workArtefactOptions.presentation.defaultSlides),
+  };
+}
+
+function buildDocumentArtefact(): DocumentArtefactPayload {
+  return {
+    type: "document",
+    fileName: "workshop-outline-draft.docx",
+    artefactLabel: "Workshop outline draft",
+    pages: structuredClone(workArtefactOptions.document.defaultPages),
+  };
+}
+
+function buildArtefactPayload(kind: "presentation" | "document"): ArtefactPayload {
+  return kind === "presentation" ? buildPresentationArtefact() : buildDocumentArtefact();
+}
+
 function getResponseContent({
   promptId,
   level,
   rolePersona,
+  framing,
 }: {
   promptId: string | null;
   level: DetailLevel;
   rolePersona: RolePersona;
+  framing?: IntentFramingSelection | null;
 }) {
   if (!promptId) return null;
   const prompt = promptMap[promptId];
   if (!prompt) return null;
 
-  const base = prompt.responses[level];
-
-  if (prompt.scenarioId === "s1") {
-    return applyRoleAwareFraming({ base, rolePersona, level });
+  if (prompt.scenarioId === "s2") {
+    return buildSensitiveResponse(framing ?? null);
   }
 
-  return base;
+  if (prompt.scenarioId === "s4") {
+    return { content: "", meta: undefined };
+  }
+
+  const base = prompt.responses?.[level] ?? prompt.responses?.standard;
+  if (!base) return null;
+
+  if (prompt.scenarioId === "s1") {
+    return {
+      content: applyRoleAwareFraming({ base, rolePersona, level }),
+      meta: undefined,
+    };
+  }
+
+  return { content: base, meta: undefined };
 }
 
 export const studyPrototypeMachine = setup({
@@ -79,7 +168,7 @@ export const studyPrototypeMachine = setup({
       | { type: "PROMPT.SELECT"; promptId: string }
       | { type: "DETAIL.SET"; detailLevel: DetailLevel }
       | { type: "ROLE.SET"; rolePersona: RolePersona }
-      | { type: "CHAT.SEND" }
+      | { type: "CHAT.SEND"; framing?: IntentFramingSelection | null }
       | { type: "CHAT.RESET" },
   },
   actions: {
@@ -97,7 +186,6 @@ export const studyPrototypeMachine = setup({
       const prompt = promptMap[event.promptId];
       if (!prompt) return context;
       return {
-        scenarioId: prompt.scenarioId,
         selectedPromptId: prompt.id,
       };
     }),
@@ -113,40 +201,59 @@ export const studyPrototypeMachine = setup({
         rolePersona: event.rolePersona,
       };
     }),
-    sendChat: assign(({ context }) => {
+    sendChat: assign(({ context, event }) => {
+      if (event.type !== "CHAT.SEND") return context;
       if (!context.selectedPromptId) return context;
       const prompt = promptMap[context.selectedPromptId];
       if (!prompt) return context;
 
       const appliedLevel: DetailLevel = context.detailLevel ?? "standard";
-      const assistantContent = getResponseContent({
+      const response = getResponseContent({
         promptId: context.selectedPromptId,
         level: appliedLevel,
         rolePersona: context.rolePersona,
+        framing: event.framing ?? null,
       });
-      if (!assistantContent) return context;
+      if (!response) return context;
 
       const levelLabel = adaptationStates.detailLevels.find((item) => item.id === appliedLevel)?.label ?? appliedLevel;
       const roleLabel = adaptationStates.rolePersonas.find((item) => item.id === context.rolePersona)?.label ?? context.rolePersona;
+      const messages: ChatMessage[] = [
+        ...context.messages,
+        {
+          id: createId("user"),
+          role: "user",
+          content: prompt.prompt,
+          meta: prompt.scenarioId === "s1" ? `A02: ${roleLabel} · A03: ${levelLabel}` : undefined,
+        },
+      ];
+
+      const assistantMessage: ChatMessage = {
+        id: createId("assistant"),
+        role: "assistant",
+        content:
+          prompt.scenarioId === "s4"
+            ? prompt.artefactKind === "presentation"
+              ? "I prepared a draft presentation artefact below. You can revise slide structure, choose hardcoded content blocks, add or remove visuals, and export the deck as PPTX."
+              : "I prepared a draft document artefact below. You can revise the A4 pages with predefined text and image blocks, reorder sections, and export the result as DOCX."
+            : response.content,
+        meta:
+          prompt.scenarioId === "s1"
+            ? `Role framing: ${roleLabel} · Detail level: ${levelLabel}`
+            : prompt.scenarioId === "s4"
+              ? "A05 work artefact composer active"
+              : response.meta,
+      };
+
+      if (prompt.scenarioId === "s4" && prompt.artefactKind) {
+        assistantMessage.artefact = buildArtefactPayload(prompt.artefactKind);
+      }
+
+      messages.push(assistantMessage);
 
       return {
-        scenarioId: prompt.scenarioId,
-        detailLevel: null,
-        messages: [
-          ...context.messages,
-          {
-            id: createId("user"),
-            role: "user",
-            content: prompt.prompt,
-            meta: `A02: ${roleLabel} · A03: ${levelLabel}`,
-          },
-          {
-            id: createId("assistant"),
-            role: "assistant",
-            content: assistantContent,
-            meta: prompt.scenarioId === "s1" ? `Role framing: ${roleLabel} · Detail level: ${levelLabel}` : `A03 level: ${levelLabel}`,
-          },
-        ],
+        detailLevel: prompt.scenarioId === "s1" ? null : context.detailLevel,
+        messages,
       };
     }),
     resetChat: assign(({ context }) => ({
@@ -159,7 +266,7 @@ export const studyPrototypeMachine = setup({
   id: "study2Prototype",
   context: {
     scenarioId: defaultScenarioId,
-    selectedPromptId: promptOptions[0]?.id ?? null,
+    selectedPromptId: null,
     detailLevel: null,
     rolePersona: defaultRolePersona,
     messages: createWelcomeMessages(defaultScenarioId),

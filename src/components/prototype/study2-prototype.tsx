@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useMachine } from "@xstate/react";
 import { studyPrototypeMachine } from "@/machines/studyPrototypeMachine";
-import { promptMap, scenarioMap } from "@/lib/prototype-data";
+import { scenarioMap, workArtefactOptions } from "@/lib/prototype-data";
 import { ScenarioSidebar } from "@/components/layout/scenario-sidebar";
 import { PrototypeHeader } from "@/components/layout/prototype-header";
 import { AdaptationRail } from "@/components/layout/adaptation-rail";
@@ -11,10 +11,10 @@ import { MessageBubble } from "@/components/chat/message-bubble";
 import { AdaptiveInteractionControl } from "@/components/adaptations/adaptive-interaction-control";
 import { RoleAwareResponseDetail } from "@/components/adaptations/role-aware-response-detail";
 import { PreflightTaskFraming } from "@/components/adaptations/preflight-task-framing";
-import { WorkArtefactComposer } from "@/components/adaptations/work-artefact-composer";
 import { ChatComposer } from "@/components/chat/chat-composer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lightbulb, ShieldAlert, FileOutput, SearchCheck } from "lucide-react";
+import type { IntentFramingSelection } from "@/types/prototype";
 
 const scenarioIcons = {
   s1: Lightbulb,
@@ -23,23 +23,30 @@ const scenarioIcons = {
   s4: FileOutput,
 };
 
-type PreflightVariant = "short_card" | "intent_canvas";
+const defaultFraming: IntentFramingSelection = {
+  goal: workArtefactOptions.intentFraming.goals[0]?.id ?? "reply-manager",
+  audience: workArtefactOptions.intentFraming.audiences[0]?.id ?? "internal-manager",
+  constraints: workArtefactOptions.intentFraming.constraints[0]?.id ?? "aggregate-only",
+  allowedSources: workArtefactOptions.intentFraming.allowedSources[0]?.id ?? "internal-policy",
+  requestedOutput: workArtefactOptions.intentFraming.requestedOutputs[0]?.id ?? "email-draft",
+};
 
 export function Study2Prototype() {
   const [state, send] = useMachine(studyPrototypeMachine);
-  const [preflightVariant, setPreflightVariant] = useState<PreflightVariant>("short_card");
   const scenario = scenarioMap[state.context.scenarioId];
-  const selectedPrompt = state.context.selectedPromptId ? promptMap[state.context.selectedPromptId] : null;
   const ActiveIcon = scenarioIcons[state.context.scenarioId];
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const [isFramingEditorOpen, setIsFramingEditorOpen] = useState(false);
+  const [draftFraming, setDraftFraming] = useState<IntentFramingSelection>(defaultFraming);
+  const [appliedFraming, setAppliedFraming] = useState<IntentFramingSelection>(defaultFraming);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [state.context.messages.length, state.context.scenarioId]);
+  }, [state.context.messages.length]);
 
   useEffect(() => {
     if (state.context.scenarioId !== "s2") {
-      setPreflightVariant("short_card");
+      setIsFramingEditorOpen(false);
     }
   }, [state.context.scenarioId]);
 
@@ -48,15 +55,13 @@ export function Study2Prototype() {
       return "Scenario 1 combines A02 role-aware framing with A03 per-prompt detail control.";
     }
     if (state.context.scenarioId === "s2") {
-      return "Scenario 2 focuses on preflight framing before a sensitive request is allowed to proceed.";
+      return "Scenario 2 uses a dropdown-only preflight framing flow before the sensitive response is shown.";
     }
     if (state.context.scenarioId === "s4") {
-      return "Scenario 4 turns a chat request into an editable work artefact instead of leaving the output as chat only.";
+      return "Scenario 4 embeds an artefact editor directly in the assistant response instead of relying on chat-only output.";
     }
     return "This area simulates enterprise assistant interaction. Later scenarios will add more adaptation-specific UI.";
   }, [state.context.scenarioId]);
-
-  const hasSentPrompt = state.context.messages.some((message) => message.role === "user");
 
   return (
     <main className="min-h-screen w-full bg-transparent xl:h-dvh xl:overflow-hidden">
@@ -99,10 +104,22 @@ export function Study2Prototype() {
 
                   {state.context.scenarioId === "s2" ? (
                     <PreflightTaskFraming
-                      variant={preflightVariant}
-                      onVariantChange={setPreflightVariant}
-                      promptLabel={selectedPrompt?.label ?? null}
-                      promptText={selectedPrompt?.prompt ?? null}
+                      appliedSelection={appliedFraming}
+                      draftSelection={draftFraming}
+                      isEditing={isFramingEditorOpen}
+                      onOpenEditor={() => {
+                        setDraftFraming(appliedFraming);
+                        setIsFramingEditorOpen(true);
+                      }}
+                      onCancel={() => {
+                        setDraftFraming(appliedFraming);
+                        setIsFramingEditorOpen(false);
+                      }}
+                      onUpdateField={(field, value) => setDraftFraming((current) => ({ ...current, [field]: value }))}
+                      onApply={() => {
+                        setAppliedFraming(draftFraming);
+                        setIsFramingEditorOpen(false);
+                      }}
                     />
                   ) : null}
                 </CardContent>
@@ -117,15 +134,6 @@ export function Study2Prototype() {
                   {state.context.messages.map((message) => (
                     <MessageBubble key={message.id} message={message} />
                   ))}
-
-                  {state.context.scenarioId === "s4" ? (
-                    <WorkArtefactComposer
-                      promptId={state.context.selectedPromptId}
-                      promptLabel={selectedPrompt?.label ?? null}
-                      enabled={hasSentPrompt}
-                    />
-                  ) : null}
-
                   <div ref={messagesEndRef} />
                 </CardContent>
               </Card>
@@ -136,7 +144,12 @@ export function Study2Prototype() {
             scenarioId={state.context.scenarioId}
             selectedPromptId={state.context.selectedPromptId}
             onPromptChange={(promptId) => send({ type: "PROMPT.SELECT", promptId })}
-            onSend={() => send({ type: "CHAT.SEND" })}
+            onSend={() =>
+              send({
+                type: "CHAT.SEND",
+                framing: state.context.scenarioId === "s2" ? appliedFraming : null,
+              })
+            }
             onReset={() => send({ type: "CHAT.RESET" })}
           />
         </section>

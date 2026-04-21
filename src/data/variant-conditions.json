@@ -17,6 +17,6 @@
   {
     "scenarioId": "s4",
     "primaryTest": "A05 Work Artefact Composer",
-    "secondaryTest": "Structured output over chat-only output"
+    "secondaryTest": "Presentation + document deliverables"
   }
 ]

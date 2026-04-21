@@ -1,0 +1,133 @@
+{
+  "intentFraming": {
+    "goals": [
+      { "id": "reply-manager", "label": "Prepare a cautious response for a manager" },
+      { "id": "summarise-policy", "label": "Summarise the policy conditions clearly" },
+      { "id": "draft-review", "label": "Create a draft that still needs review" }
+    ],
+    "audiences": [
+      { "id": "internal-manager", "label": "Internal manager" },
+      { "id": "hr-partner", "label": "HR / compliance partner" },
+      { "id": "external-vendor", "label": "External vendor contact" }
+    ],
+    "constraints": [
+      { "id": "aggregate-only", "label": "Use only aggregated information" },
+      { "id": "no-identifiers", "label": "Do not expose identifiable details" },
+      { "id": "policy-review", "label": "Require policy review before final use" }
+    ],
+    "allowedSources": [
+      { "id": "internal-policy", "label": "Internal policy documents only" },
+      { "id": "policy-plus-hr", "label": "Policy documents plus HR guidance" },
+      { "id": "policy-plus-public", "label": "Policy documents plus public regulations" }
+    ],
+    "requestedOutputs": [
+      { "id": "email-draft", "label": "Cautious email draft" },
+      { "id": "bullet-summary", "label": "Bullet summary with caveats" },
+      { "id": "review-note", "label": "Escalation / review note" }
+    ]
+  },
+  "visualOptions": [
+    { "id": "photo-team", "label": "Office collaboration photo", "src": "/visuals/photo-team.png", "category": "image" },
+    { "id": "photo-workshop", "label": "Workshop facilitation photo", "src": "/visuals/photo-workshop.png", "category": "image" },
+    { "id": "photo-dashboard", "label": "Dashboard close-up photo", "src": "/visuals/photo-dashboard.png", "category": "image" },
+    { "id": "photo-meeting", "label": "Meeting room photo", "src": "/visuals/photo-meeting.png", "category": "image" },
+    { "id": "timeline", "label": "Timeline", "src": "/visuals/timeline.png", "category": "figure" },
+    { "id": "checklist", "label": "Checklist", "src": "/visuals/checklist.png", "category": "figure" },
+    { "id": "process-diagram", "label": "Process diagram", "src": "/visuals/process-diagram.png", "category": "figure" },
+    { "id": "progress-chart", "label": "Progress chart", "src": "/visuals/progress-chart.png", "category": "figure" },
+    { "id": "risk-matrix", "label": "Risk matrix", "src": "/visuals/risk-matrix.png", "category": "figure" },
+    { "id": "graph", "label": "Graph", "src": "/visuals/graph.png", "category": "figure" },
+    { "id": "bar-chart", "label": "Bar chart", "src": "/visuals/bar-chart.png", "category": "figure" }
+  ],
+  "presentation": {
+    "titleOptions": [
+      { "id": "exec-summary", "label": "Executive summary" },
+      { "id": "current-status", "label": "Current status" },
+      { "id": "risks-dependencies", "label": "Risks and dependencies" },
+      { "id": "decision-next-step", "label": "Decision and next step" },
+      { "id": "recommendation", "label": "Recommendation" },
+      { "id": "delivery-plan", "label": "Delivery plan" }
+    ],
+    "bodyOptions": [
+      {
+        "id": "body-summary",
+        "label": "State the overall message in one sentence and anchor the decision needed."
+      },
+      {
+        "id": "body-status",
+        "label": "Summarise current progress, what is on track, and what has shifted since the last update."
+      },
+      {
+        "id": "body-risk",
+        "label": "Show the main blockers, likely impact, and what leadership should pay attention to."
+      },
+      {
+        "id": "body-decision",
+        "label": "State the decision required, owner, and expected next milestone."
+      },
+      {
+        "id": "body-recommendation",
+        "label": "Frame the preferred course of action, assumptions, and what support is needed."
+      },
+      {
+        "id": "body-plan",
+        "label": "Outline timing, responsibilities, and the sequence of follow-up actions."
+      }
+    ],
+    "defaultSlides": [
+      { "id": "s1", "titleOptionId": "exec-summary", "bodyOptionId": "body-summary", "visuals": ["photo-dashboard"] },
+      { "id": "s2", "titleOptionId": "current-status", "bodyOptionId": "body-status", "visuals": ["progress-chart"] },
+      { "id": "s3", "titleOptionId": "risks-dependencies", "bodyOptionId": "body-risk", "visuals": ["risk-matrix"] },
+      { "id": "s4", "titleOptionId": "decision-next-step", "bodyOptionId": "body-decision", "visuals": ["timeline"] }
+    ]
+  },
+  "document": {
+    "titleOptions": [
+      { "id": "doc-overview", "label": "Workshop overview" },
+      { "id": "doc-agenda", "label": "Agenda block" },
+      { "id": "doc-materials", "label": "Materials and setup" },
+      { "id": "doc-follow-up", "label": "Follow-up actions" },
+      { "id": "doc-note", "label": "Facilitation note" }
+    ],
+    "bodyOptions": [
+      {
+        "id": "doc-body-overview",
+        "label": "Summarise the workshop purpose, intended audience, and the outcome participants should leave with."
+      },
+      {
+        "id": "doc-body-agenda",
+        "label": "Describe the activity sequence, timing, and how the transition between blocks should happen."
+      },
+      {
+        "id": "doc-body-materials",
+        "label": "List the materials, room setup, and any preparation needed before the session starts."
+      },
+      {
+        "id": "doc-body-follow-up",
+        "label": "Capture the concrete next steps, owners, and what needs to be checked after the session."
+      },
+      {
+        "id": "doc-body-note",
+        "label": "Add a facilitation cue that helps the presenter keep the audience engaged and on time."
+      }
+    ],
+    "defaultPages": [
+      {
+        "id": "p1",
+        "blocks": [
+          { "id": "b1", "type": "text", "titleOptionId": "doc-overview", "bodyOptionId": "doc-body-overview" },
+          { "id": "b2", "type": "image", "visualId": "photo-workshop" },
+          { "id": "b3", "type": "text", "titleOptionId": "doc-agenda", "bodyOptionId": "doc-body-agenda" }
+        ]
+      },
+      {
+        "id": "p2",
+        "blocks": [
+          { "id": "b4", "type": "text", "titleOptionId": "doc-materials", "bodyOptionId": "doc-body-materials" },
+          { "id": "b5", "type": "image", "visualId": "checklist" },
+          { "id": "b6", "type": "text", "titleOptionId": "doc-follow-up", "bodyOptionId": "doc-body-follow-up" }
+        ]
+      }
+    ]
+  }
+}

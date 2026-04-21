@@ -30,26 +30,26 @@
     "id": "s2",
     "title": "Scenario 2 · Sensitive request",
     "subtitle": "Reveal framing and governance cues before risky actions proceed.",
-    "goal": "Test A06 Preflight Task Framing and A09 Governance Banner with embedded uncertainty / recency cues.",
+    "goal": "Test A06 Preflight Task Framing and later A09 Governance Banner with embedded uncertainty / recency cues.",
     "adaptations": ["A06", "A09"],
     "placeholderCards": [
       {
         "id": "a06",
         "label": "A06 · Preflight task framing",
-        "description": "Implemented with a short confirmation card and a fuller editable intent canvas.",
+        "description": "Implemented as a short framing card with an expandable intent canvas using dropdown selections.",
         "status": "implemented"
       },
       {
         "id": "a09",
         "label": "A09 · Governance banner",
-        "description": "Placeholder for passive and actionable banner variants with risk context.",
+        "description": "Reserved for passive and actionable banner variants with risk context.",
         "status": "placeholder"
       },
       {
         "id": "embedded-a07-a14",
         "label": "Embedded A07 / A14",
-        "description": "Uncertainty and recency signals will be embedded inside the framing and banner components later.",
-        "status": "placeholder"
+        "description": "Scenario 2 responses now preview uncertainty and freshness cues through the framing summary.",
+        "status": "implemented"
       }
     ]
   },
@@ -84,19 +84,25 @@
     "id": "s4",
     "title": "Scenario 4 · Output generation",
     "subtitle": "Generate a practical artefact instead of a chat-only answer.",
-    "goal": "Test A05 Work Artefact Composer.",
+    "goal": "Test A05 Work Artefact Composer through one presentation flow and one document flow.",
     "adaptations": ["A05"],
     "placeholderCards": [
       {
         "id": "a05",
         "label": "A05 · Work artefact composer",
-        "description": "Implemented as an embedded editable slide deck preview in the response area.",
+        "description": "Implemented as embedded editors for a presentation artefact and a document artefact.",
         "status": "implemented"
       },
       {
-        "id": "artefact-preview",
-        "label": "Artefact preview rail",
-        "description": "Implemented as an editable slide-by-slide preview with prototype download.",
+        "id": "presentation-flow",
+        "label": "Presentation editor",
+        "description": "Supports slide-level dropdown editing, up to 15 slides, and PPTX export.",
+        "status": "implemented"
+      },
+      {
+        "id": "document-flow",
+        "label": "Document editor",
+        "description": "Supports A4-style page editing with block reordering, images, and DOCX export.",
         "status": "implemented"
       }
     ]

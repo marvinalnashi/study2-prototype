@@ -11,8 +11,10 @@
   "dependencies": {
     "@xstate/react": "latest",
     "clsx": "latest",
+    "docx": "latest",
     "lucide-react": "latest",
     "next": "latest",
+    "pptxgenjs": "latest",
     "react": "latest",
     "react-dom": "latest",
     "tailwind-merge": "latest",
