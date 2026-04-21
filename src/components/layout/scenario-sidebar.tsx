@@ -1,4 +1,4 @@
-import { orderedScenarios } from "@/machines/studyPrototypeMachine";
+import { scenarios } from "@/lib/prototype-data";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { ScenarioId } from "@/types/prototype";
@@ -11,14 +11,14 @@ export function ScenarioSidebar({
   onSelectScenario: (scenarioId: ScenarioId) => void;
 }) {
   return (
-    <aside className="flex h-full flex-col gap-4 border-r border-white/10 bg-slate-950/45 p-4 backdrop-blur-xl">
-      <div>
-        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-500">Walkthrough scenarios</p>
-        <h2 className="mt-2 text-sm font-medium text-slate-200">Select the branch you want to simulate</h2>
+    <aside className="hidden h-full border-r border-white/10 bg-slate-950/60 xl:flex xl:w-[272px] xl:flex-col xl:p-4">
+      <div className="mb-4">
+        <div className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Walkthrough scenarios</div>
+        <p className="mt-2 text-sm text-slate-200">Select the branch you want to simulate.</p>
       </div>
 
-      <div className="flex flex-col gap-3">
-        {orderedScenarios.map((scenario) => {
+      <div className="flex flex-col gap-3 overflow-y-auto pr-1">
+        {scenarios.map((scenario) => {
           const active = scenario.id === currentScenarioId;
           return (
             <button

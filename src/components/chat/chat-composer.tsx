@@ -17,8 +17,8 @@ export function ChatComposer({
   onReset: () => void;
 }) {
   return (
-    <div className="border-t border-white/10 bg-slate-950/65 px-6 py-4 backdrop-blur-xl">
-      <div className="rounded-3xl border border-white/10 bg-white/5 p-4 shadow-[0_12px_40px_rgba(15,23,42,0.25)]">
+    <div className="border-t border-white/10 bg-slate-950/70 px-4 py-3 backdrop-blur-xl sm:px-5">
+      <div className="rounded-3xl border border-white/10 bg-white/5 p-3 shadow-[0_12px_40px_rgba(15,23,42,0.25)]">
         <div className="mb-3 flex items-center justify-between gap-3">
           <div>
             <div className="text-sm font-medium text-slate-100">Hardcoded prompt selector</div>
@@ -31,11 +31,11 @@ export function ChatComposer({
           </div>
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-[1fr_auto]">
+        <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
           <select
             value={selectedPromptId ?? ""}
             onChange={(event) => onPromptChange(event.target.value)}
-            className="h-12 w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 text-sm text-slate-100 outline-none ring-0 transition focus:border-violet-400/40"
+            className="h-11 w-full min-w-0 rounded-2xl border border-white/10 bg-slate-950/60 px-4 text-sm text-slate-100 outline-none ring-0 transition focus:border-violet-400/40"
           >
             <option value="" disabled>
               Select a prompt to simulate a walkthrough branch

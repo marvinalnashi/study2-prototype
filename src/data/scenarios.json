@@ -9,13 +9,13 @@
       {
         "id": "a02",
         "label": "A02 · Role-aware response detail",
-        "description": "Implemented through canned responses that change by guidance level and expertise framing.",
+        "description": "Implemented as role framing for new hires, managers, and specialists.",
         "status": "implemented"
       },
       {
         "id": "a03",
         "label": "A03 · Adaptive interaction control",
-        "description": "Implemented as a visible in-chat slider or profile-based control.",
+        "description": "Implemented as a compact in-chat slider for per-response detail selection.",
         "status": "implemented"
       },
       {

@@ -21,26 +21,21 @@
       "hint": "Maximum transparency, rationale, and traceability."
     }
   ],
-  "profiles": [
+  "rolePersonas": [
     {
-      "id": "brief",
-      "label": "Concise profile",
-      "hint": "Low-friction mode for short responses and quick scanning."
+      "id": "new_hire",
+      "label": "New hire",
+      "hint": "More definitions and orientation for someone still learning the domain."
     },
     {
-      "id": "standard",
-      "label": "Balanced profile",
-      "hint": "Default profile with moderate guidance and detail."
+      "id": "manager",
+      "label": "Manager",
+      "hint": "Higher-level framing focused on decision impact, risk, and action."
     },
     {
-      "id": "guided",
-      "label": "Guided profile",
-      "hint": "More coaching for complex or unfamiliar tasks."
-    },
-    {
-      "id": "audit",
-      "label": "Audit-ready profile",
-      "hint": "Trust-building mode with extra explanation and verification cues."
+      "id": "specialist",
+      "label": "Specialist",
+      "hint": "More domain language and less introductory explanation."
     }
   ]
 }

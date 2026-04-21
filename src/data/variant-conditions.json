@@ -2,25 +2,21 @@
   {
     "scenarioId": "s1",
     "primaryTest": "A02 Role-Aware Response Detail",
-    "secondaryTest": "A03 Adaptive Interaction Control",
-    "recommendedA03Variant": "slider"
+    "secondaryTest": "A03 Adaptive Interaction Control"
   },
   {
     "scenarioId": "s2",
     "primaryTest": "A06 Preflight Task Framing",
-    "secondaryTest": "A09 Governance Banner for Sensitive Contexts",
-    "recommendedA03Variant": "profiles"
+    "secondaryTest": "A09 Governance Banner for Sensitive Contexts"
   },
   {
     "scenarioId": "s3",
     "primaryTest": "A08 Evidence Register",
-    "secondaryTest": "Embedded A07 / A14",
-    "recommendedA03Variant": "profiles"
+    "secondaryTest": "Embedded A07 / A14"
   },
   {
     "scenarioId": "s4",
     "primaryTest": "A05 Work Artefact Composer",
-    "secondaryTest": "Structured output over chat-only output",
-    "recommendedA03Variant": "slider"
+    "secondaryTest": "Structured output over chat-only output"
   }
 ]

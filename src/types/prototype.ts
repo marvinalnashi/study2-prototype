@@ -2,7 +2,7 @@ export type ScenarioId = "s1" | "s2" | "s3" | "s4";
 
 export type DetailLevel = "brief" | "standard" | "guided" | "audit";
 
-export type ControlVariant = "slider" | "profiles";
+export type RolePersona = "new_hire" | "manager" | "specialist";
 
 export type MessageRole = "assistant" | "user";
 
@@ -34,8 +34,8 @@ export type AdaptationState = {
     label: string;
     hint: string;
   }>;
-  profiles: Array<{
-    id: DetailLevel;
+  rolePersonas: Array<{
+    id: RolePersona;
     label: string;
     hint: string;
   }>;
@@ -45,7 +45,6 @@ export type VariantCondition = {
   scenarioId: ScenarioId;
   primaryTest: string;
   secondaryTest?: string;
-  recommendedA03Variant?: ControlVariant;
 };
 
 export type ChatMessage = {

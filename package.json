@@ -9,22 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@xstate/react": "^6.1.0",
-    "clsx": "^2.1.1",
-    "lucide-react": "^1.8.0",
+    "@xstate/react": "latest",
+    "clsx": "latest",
+    "lucide-react": "latest",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "tailwind-merge": "^3.5.0",
-    "xstate": "^5.30.0"
+    "tailwind-merge": "latest",
+    "xstate": "latest"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.2.3",
+    "@tailwindcss/postcss": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "postcss": "^8.5.10",
-    "tailwindcss": "^4.2.3",
+    "postcss": "latest",
+    "tailwindcss": "latest",
     "typescript": "latest"
   }
 }

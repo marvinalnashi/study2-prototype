@@ -13,7 +13,7 @@ export function AdaptationRail({
   const condition = variantConditions.find((entry) => entry.scenarioId === scenarioId);
 
   return (
-    <aside className="hidden h-full flex-col gap-4 border-l border-white/10 bg-slate-950/45 p-4 xl:flex">
+    <aside className="hidden h-full border-l border-white/10 bg-slate-950/45 p-4 xl:flex xl:w-[308px] xl:flex-col xl:gap-4 xl:overflow-y-auto">
       <Card>
         <CardHeader>
           <CardTitle>Scenario focus</CardTitle>
