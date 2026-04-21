@@ -1,0 +1,104 @@
+[
+  {
+    "id": "s1",
+    "title": "Scenario 1 · Ambiguous request",
+    "subtitle": "Tailor explanation depth to role, expertise, and task intent.",
+    "goal": "Test A02 Role-Aware Response Detail and A03 Adaptive Interaction Control.",
+    "adaptations": ["A02", "A03"],
+    "placeholderCards": [
+      {
+        "id": "a02",
+        "label": "A02 · Role-aware response detail",
+        "description": "Implemented through canned responses that change by guidance level and expertise framing.",
+        "status": "implemented"
+      },
+      {
+        "id": "a03",
+        "label": "A03 · Adaptive interaction control",
+        "description": "Implemented as a visible in-chat slider or profile-based control.",
+        "status": "implemented"
+      },
+      {
+        "id": "follow-up",
+        "label": "Next-step placeholder",
+        "description": "Reserved for later next-step prompts and task continuation logic.",
+        "status": "placeholder"
+      }
+    ]
+  },
+  {
+    "id": "s2",
+    "title": "Scenario 2 · Sensitive request",
+    "subtitle": "Reveal framing and governance cues before risky actions proceed.",
+    "goal": "Test A06 Preflight Task Framing and A09 Governance Banner with embedded uncertainty / recency cues.",
+    "adaptations": ["A06", "A09"],
+    "placeholderCards": [
+      {
+        "id": "a06",
+        "label": "A06 · Preflight task framing",
+        "description": "Placeholder for short confirmation card and fuller editable intent canvas variants.",
+        "status": "placeholder"
+      },
+      {
+        "id": "a09",
+        "label": "A09 · Governance banner",
+        "description": "Placeholder for passive and actionable banner variants with risk context.",
+        "status": "placeholder"
+      },
+      {
+        "id": "embedded-a07-a14",
+        "label": "Embedded A07 / A14",
+        "description": "Uncertainty and recency signals will be embedded inside the framing and banner components later.",
+        "status": "placeholder"
+      }
+    ]
+  },
+  {
+    "id": "s3",
+    "title": "Scenario 3 · Evidence-heavy request",
+    "subtitle": "Inspect whether participants notice and trust evidence visibility patterns.",
+    "goal": "Test A08 Evidence Register with embedded uncertainty / recency cues.",
+    "adaptations": ["A08"],
+    "placeholderCards": [
+      {
+        "id": "a08",
+        "label": "A08 · Evidence register",
+        "description": "Placeholder for inline evidence panel and side-panel / ledger variants.",
+        "status": "placeholder"
+      },
+      {
+        "id": "embedded-a07",
+        "label": "Embedded A07",
+        "description": "Confidence / uncertainty will later appear inside the evidence components.",
+        "status": "placeholder"
+      },
+      {
+        "id": "embedded-a14",
+        "label": "Embedded A14",
+        "description": "Freshness / recency metadata will later be displayed inside the evidence components.",
+        "status": "placeholder"
+      }
+    ]
+  },
+  {
+    "id": "s4",
+    "title": "Scenario 4 · Output generation",
+    "subtitle": "Generate a practical artefact instead of a chat-only answer.",
+    "goal": "Test A05 Work Artefact Composer.",
+    "adaptations": ["A05"],
+    "placeholderCards": [
+      {
+        "id": "a05",
+        "label": "A05 · Work artefact composer",
+        "description": "Placeholder for later memo / presentation / checklist artefact generation flows.",
+        "status": "placeholder"
+      },
+      {
+        "id": "artefact-preview",
+        "label": "Artefact preview rail",
+        "description": "Reserved for downloadable or previewable structured deliverables in later iterations.",
+        "status": "placeholder"
+      }
+    ]
+  }
+]

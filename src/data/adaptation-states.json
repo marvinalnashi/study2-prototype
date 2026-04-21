@@ -1,0 +1,46 @@
+{
+  "detailLevels": [
+    {
+      "id": "brief",
+      "label": "Brief",
+      "hint": "Concise answer with minimal explanation."
+    },
+    {
+      "id": "standard",
+      "label": "Standard",
+      "hint": "Balanced answer for everyday work."
+    },
+    {
+      "id": "guided",
+      "label": "Guided",
+      "hint": "More structure, steps, and explanation."
+    },
+    {
+      "id": "audit",
+      "label": "Audit",
+      "hint": "Maximum transparency, rationale, and traceability."
+    }
+  ],
+  "profiles": [
+    {
+      "id": "brief",
+      "label": "Concise profile",
+      "hint": "Low-friction mode for short responses and quick scanning."
+    },
+    {
+      "id": "standard",
+      "label": "Balanced profile",
+      "hint": "Default profile with moderate guidance and detail."
+    },
+    {
+      "id": "guided",
+      "label": "Guided profile",
+      "hint": "More coaching for complex or unfamiliar tasks."
+    },
+    {
+      "id": "audit",
+      "label": "Audit-ready profile",
+      "hint": "Trust-building mode with extra explanation and verification cues."
+    }
+  ]
+}
