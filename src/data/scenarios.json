@@ -36,8 +36,8 @@
       {
         "id": "a06",
         "label": "A06 · Preflight task framing",
-        "description": "Placeholder for short confirmation card and fuller editable intent canvas variants.",
-        "status": "placeholder"
+        "description": "Implemented with a short confirmation card and a fuller editable intent canvas.",
+        "status": "implemented"
       },
       {
         "id": "a09",
@@ -90,14 +90,14 @@
       {
         "id": "a05",
         "label": "A05 · Work artefact composer",
-        "description": "Placeholder for later memo / presentation / checklist artefact generation flows.",
-        "status": "placeholder"
+        "description": "Implemented as an embedded editable slide deck preview in the response area.",
+        "status": "implemented"
       },
       {
         "id": "artefact-preview",
         "label": "Artefact preview rail",
-        "description": "Reserved for downloadable or previewable structured deliverables in later iterations.",
-        "status": "placeholder"
+        "description": "Implemented as an editable slide-by-slide preview with prototype download.",
+        "status": "implemented"
       }
     ]
   }

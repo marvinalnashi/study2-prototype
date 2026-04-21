@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useMachine } from "@xstate/react";
 import { studyPrototypeMachine } from "@/machines/studyPrototypeMachine";
-import { scenarioMap } from "@/lib/prototype-data";
+import { promptMap, scenarioMap } from "@/lib/prototype-data";
 import { ScenarioSidebar } from "@/components/layout/scenario-sidebar";
 import { PrototypeHeader } from "@/components/layout/prototype-header";
 import { AdaptationRail } from "@/components/layout/adaptation-rail";
 import { MessageBubble } from "@/components/chat/message-bubble";
 import { AdaptiveInteractionControl } from "@/components/adaptations/adaptive-interaction-control";
 import { RoleAwareResponseDetail } from "@/components/adaptations/role-aware-response-detail";
+import { PreflightTaskFraming } from "@/components/adaptations/preflight-task-framing";
+import { WorkArtefactComposer } from "@/components/adaptations/work-artefact-composer";
 import { ChatComposer } from "@/components/chat/chat-composer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lightbulb, ShieldAlert, FileOutput, SearchCheck } from "lucide-react";
@@ -21,22 +23,40 @@ const scenarioIcons = {
   s4: FileOutput,
 };
 
+type PreflightVariant = "short_card" | "intent_canvas";
+
 export function Study2Prototype() {
   const [state, send] = useMachine(studyPrototypeMachine);
+  const [preflightVariant, setPreflightVariant] = useState<PreflightVariant>("short_card");
   const scenario = scenarioMap[state.context.scenarioId];
+  const selectedPrompt = state.context.selectedPromptId ? promptMap[state.context.selectedPromptId] : null;
   const ActiveIcon = scenarioIcons[state.context.scenarioId];
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [state.context.messages.length]);
+  }, [state.context.messages.length, state.context.scenarioId]);
+
+  useEffect(() => {
+    if (state.context.scenarioId !== "s2") {
+      setPreflightVariant("short_card");
+    }
+  }, [state.context.scenarioId]);
 
   const introDescription = useMemo(() => {
     if (state.context.scenarioId === "s1") {
       return "Scenario 1 combines A02 role-aware framing with A03 per-prompt detail control.";
     }
+    if (state.context.scenarioId === "s2") {
+      return "Scenario 2 focuses on preflight framing before a sensitive request is allowed to proceed.";
+    }
+    if (state.context.scenarioId === "s4") {
+      return "Scenario 4 turns a chat request into an editable work artefact instead of leaving the output as chat only.";
+    }
     return "This area simulates enterprise assistant interaction. Later scenarios will add more adaptation-specific UI.";
   }, [state.context.scenarioId]);
+
+  const hasSentPrompt = state.context.messages.some((message) => message.role === "user");
 
   return (
     <main className="min-h-screen w-full bg-transparent xl:h-dvh xl:overflow-hidden">
@@ -65,15 +85,26 @@ export function Study2Prototype() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {state.context.scenarioId === "s1" ? (
-                    <RoleAwareResponseDetail
-                      rolePersona={state.context.rolePersona}
-                      onChange={(rolePersona) => send({ type: "ROLE.SET", rolePersona })}
+                    <>
+                      <RoleAwareResponseDetail
+                        rolePersona={state.context.rolePersona}
+                        onChange={(rolePersona) => send({ type: "ROLE.SET", rolePersona })}
+                      />
+                      <AdaptiveInteractionControl
+                        detailLevel={state.context.detailLevel}
+                        onChange={(detailLevel) => send({ type: "DETAIL.SET", detailLevel })}
+                      />
+                    </>
+                  ) : null}
+
+                  {state.context.scenarioId === "s2" ? (
+                    <PreflightTaskFraming
+                      variant={preflightVariant}
+                      onVariantChange={setPreflightVariant}
+                      promptLabel={selectedPrompt?.label ?? null}
+                      promptText={selectedPrompt?.prompt ?? null}
                     />
                   ) : null}
-                  <AdaptiveInteractionControl
-                    detailLevel={state.context.detailLevel}
-                    onChange={(detailLevel) => send({ type: "DETAIL.SET", detailLevel })}
-                  />
                 </CardContent>
               </Card>
 
@@ -86,6 +117,15 @@ export function Study2Prototype() {
                   {state.context.messages.map((message) => (
                     <MessageBubble key={message.id} message={message} />
                   ))}
+
+                  {state.context.scenarioId === "s4" ? (
+                    <WorkArtefactComposer
+                      promptId={state.context.selectedPromptId}
+                      promptLabel={selectedPrompt?.label ?? null}
+                      enabled={hasSentPrompt}
+                    />
+                  ) : null}
+
                   <div ref={messagesEndRef} />
                 </CardContent>
               </Card>
