@@ -30,7 +30,7 @@
     "id": "s2",
     "title": "Scenario 2 · Sensitive request",
     "subtitle": "Reveal framing and governance cues before risky actions proceed.",
-    "goal": "Test A06 Preflight Task Framing and later A09 Governance Banner with embedded uncertainty / recency cues.",
+    "goal": "Test A06 Preflight Task Framing and A09 Governance Banner with embedded uncertainty / recency cues.",
     "adaptations": ["A06", "A09"],
     "placeholderCards": [
       {
@@ -42,13 +42,13 @@
       {
         "id": "a09",
         "label": "A09 · Governance banner",
-        "description": "Reserved for passive and actionable banner variants with risk context.",
-        "status": "placeholder"
+        "description": "Implemented as a switchable passive banner or banner + action prompt with risk context.",
+        "status": "implemented"
       },
       {
         "id": "embedded-a07-a14",
         "label": "Embedded A07 / A14",
-        "description": "Scenario 2 responses now preview uncertainty and freshness cues through the framing summary.",
+        "description": "Scenario 2 surfaces uncertainty and freshness cues inside the governance banner and final response.",
         "status": "implemented"
       }
     ]

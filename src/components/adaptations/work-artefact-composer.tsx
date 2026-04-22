@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn, createId } from "@/lib/utils";
@@ -212,11 +212,11 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
                   {labelFrom(slide.bodyOptionId, bodyOptions)}
                 </div>
                 <div className={cn("mt-4 grid gap-2", slide.visuals.length <= 1 ? "grid-cols-1" : slide.visuals.length === 2 ? "grid-cols-2" : "grid-cols-3")}>
-                  {slide.visuals.map((visualId) => {
+                  {slide.visuals.map((visualId, visualIndex) => {
                     const visual = visualMap[visualId];
                     if (!visual) return null;
                     return (
-                      <div key={visualId} className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                      <div key={`${slide.id}-preview-${visualIndex}`} className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
                         <img src={visual.src} alt={visual.label} className="h-24 w-full object-cover" />
                         <div className="px-2 py-1 text-[11px] text-slate-600">{visual.label}</div>
                       </div>

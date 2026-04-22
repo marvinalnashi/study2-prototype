@@ -12,6 +12,7 @@ import type {
   ChatMessage,
   DetailLevel,
   DocumentArtefactPayload,
+  GovernanceBannerVariant,
   IntentFramingSelection,
   PresentationArtefactPayload,
   RolePersona,
@@ -62,7 +63,11 @@ function labelFromList(list: Array<{ id: string; label: string }>, id: string) {
   return list.find((item) => item.id === id)?.label ?? id;
 }
 
-function buildSensitiveResponse(framing: IntentFramingSelection | null) {
+function buildSensitiveResponse(
+  promptId: string,
+  framing: IntentFramingSelection | null,
+  bannerVariant: GovernanceBannerVariant | null,
+) {
   const defaults = {
     goal: workArtefactOptions.intentFraming.goals[0]?.id ?? "reply-manager",
     audience: workArtefactOptions.intentFraming.audiences[0]?.id ?? "internal-manager",
@@ -79,8 +84,27 @@ function buildSensitiveResponse(framing: IntentFramingSelection | null) {
   const allowedSources = labelFromList(workArtefactOptions.intentFraming.allowedSources, selected.allowedSources);
   const requestedOutput = labelFromList(workArtefactOptions.intentFraming.requestedOutputs, selected.requestedOutput);
 
+  const promptSpecific =
+    promptId === "p-s2-1"
+      ? {
+          title: "Sensitive salary-data summary",
+          riskTrigger: "internal salary differences and role-based HR data",
+          recommendation:
+            "Keep the answer aggregated, avoid identifiable details, and route final use through the relevant HR or compliance owner.",
+        }
+      : {
+          title: "External sharing policy summary",
+          riskTrigger: "conditions for sharing internal documentation with an external vendor",
+          recommendation:
+            "Use approved policy wording, make caveats visible, and flag the answer for policy review before external use.",
+        };
+
+  const variantLabel = bannerVariant === "action" ? "banner + action prompt" : "passive banner";
+
   const content = [
-    `Preflight framing applied before answering:`,
+    `${promptSpecific.title}`,
+    "",
+    "Preflight framing applied before answering:",
     `• Goal: ${goal}`,
     `• Audience: ${audience}`,
     `• Constraint: ${constraints}`,
@@ -88,10 +112,10 @@ function buildSensitiveResponse(framing: IntentFramingSelection | null) {
     `• Requested output: ${requestedOutput}`,
     "",
     "Recommended assistant response:",
-    `I can support this request, but only within the framing above. I will stay within ${constraints.toLowerCase()}, rely on ${allowedSources.toLowerCase()}, and produce a ${requestedOutput.toLowerCase()} for ${audience.toLowerCase()}. Before this is used operationally, it should still be reviewed by the relevant owner.`
+    `I can support this request, but only within the framing above. I will treat ${promptSpecific.riskTrigger} as sensitive, stay within ${constraints.toLowerCase()}, rely on ${allowedSources.toLowerCase()}, and produce a ${requestedOutput.toLowerCase()} for ${audience.toLowerCase()}. ${promptSpecific.recommendation}`,
   ].join("\n");
 
-  const meta = `A06 framing active · Uncertainty cue: medium · Freshness cue: verify against current policy version.`;
+  const meta = `A06 framing active · A09 ${variantLabel} · Uncertainty cue: medium · Freshness cue: verify against current policy version.`;
 
   return { content, meta };
 }
@@ -123,18 +147,20 @@ function getResponseContent({
   level,
   rolePersona,
   framing,
+  bannerVariant,
 }: {
   promptId: string | null;
   level: DetailLevel;
   rolePersona: RolePersona;
   framing?: IntentFramingSelection | null;
+  bannerVariant?: GovernanceBannerVariant | null;
 }) {
   if (!promptId) return null;
   const prompt = promptMap[promptId];
   if (!prompt) return null;
 
   if (prompt.scenarioId === "s2") {
-    return buildSensitiveResponse(framing ?? null);
+    return buildSensitiveResponse(promptId, framing ?? null, bannerVariant ?? "passive");
   }
 
   if (prompt.scenarioId === "s4") {
@@ -168,7 +194,7 @@ export const studyPrototypeMachine = setup({
       | { type: "PROMPT.SELECT"; promptId: string }
       | { type: "DETAIL.SET"; detailLevel: DetailLevel }
       | { type: "ROLE.SET"; rolePersona: RolePersona }
-      | { type: "CHAT.SEND"; framing?: IntentFramingSelection | null }
+      | { type: "CHAT.SEND"; framing?: IntentFramingSelection | null; bannerVariant?: GovernanceBannerVariant | null }
       | { type: "CHAT.RESET" },
   },
   actions: {
@@ -213,6 +239,7 @@ export const studyPrototypeMachine = setup({
         level: appliedLevel,
         rolePersona: context.rolePersona,
         framing: event.framing ?? null,
+        bannerVariant: event.bannerVariant ?? null,
       });
       if (!response) return context;
 

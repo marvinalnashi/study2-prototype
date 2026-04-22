@@ -4,6 +4,8 @@ export type DetailLevel = "brief" | "standard" | "guided" | "audit";
 
 export type RolePersona = "new_hire" | "manager" | "specialist";
 
+export type GovernanceBannerVariant = "passive" | "action";
+
 export type MessageRole = "assistant" | "user";
 
 export type WorkArtefactKind = "presentation" | "document";
