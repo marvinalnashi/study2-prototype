@@ -6,6 +6,7 @@ import {
   scenarios,
   workArtefactOptions,
 } from "@/lib/prototype-data";
+import { evidenceLedgerMap } from "@/lib/evidence-data";
 import { createId } from "@/lib/utils";
 import type {
   ArtefactPayload,
@@ -271,6 +272,10 @@ export const studyPrototypeMachine = setup({
               ? "A05 work artefact composer active"
               : response.meta,
       };
+
+      if (prompt.scenarioId === "s3") {
+        assistantMessage.evidence = evidenceLedgerMap[prompt.id] ?? undefined;
+      }
 
       if (prompt.scenarioId === "s4" && prompt.artefactKind) {
         assistantMessage.artefact = buildArtefactPayload(prompt.artefactKind);

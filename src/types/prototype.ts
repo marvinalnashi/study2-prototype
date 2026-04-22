@@ -6,6 +6,10 @@ export type RolePersona = "new_hire" | "manager" | "specialist";
 
 export type GovernanceBannerVariant = "passive" | "action";
 
+/**
+ * Kept for compatibility with earlier iterations of the prototype.
+ * A08 now uses only the inline implementation in Study 2.
+ */
 export type EvidenceRegisterVariant = "inline" | "ledger";
 
 export type MessageRole = "assistant" | "user";
@@ -115,10 +119,30 @@ export type DocumentArtefactPayload = {
 
 export type ArtefactPayload = PresentationArtefactPayload | DocumentArtefactPayload;
 
+export type EvidenceEntry = {
+  id: string;
+  title: string;
+  note: string;
+  tag: string;
+  url: string;
+  excerpt?: string;
+};
+
+export type EvidenceLedger = {
+  title: string;
+  summary: string;
+  confidence: string;
+  freshness: string;
+  used: EvidenceEntry[];
+  omitted: EvidenceEntry[];
+  inaccessible: EvidenceEntry[];
+};
+
 export type ChatMessage = {
   id: string;
   role: MessageRole;
   content: string;
   meta?: string;
   artefact?: ArtefactPayload;
+  evidence?: EvidenceLedger;
 };
