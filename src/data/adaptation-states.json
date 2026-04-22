@@ -3,7 +3,7 @@
     {
       "id": "brief",
       "label": "Brief",
-      "hint": "Concise answer with minimal explanation."
+      "hint": "Short answer with only the essentials."
     },
     {
       "id": "standard",
@@ -17,25 +17,25 @@
     },
     {
       "id": "audit",
-      "label": "Audit",
-      "hint": "Maximum transparency, rationale, and traceability."
+      "label": "Thorough",
+      "hint": "Maximum detail, reasoning, and traceability."
     }
   ],
   "rolePersonas": [
     {
       "id": "new_hire",
       "label": "New hire",
-      "hint": "More definitions and orientation for someone still learning the domain."
+      "hint": "Add basic definitions and a little extra orientation."
     },
     {
       "id": "manager",
       "label": "Manager",
-      "hint": "Higher-level framing focused on decision impact, risk, and action."
+      "hint": "Focus on decisions, risks, and next actions."
     },
     {
       "id": "specialist",
       "label": "Specialist",
-      "hint": "More domain language and less introductory explanation."
+      "hint": "Use more domain language and less introduction."
     }
   ]
 }

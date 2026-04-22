@@ -16,16 +16,31 @@ export function AdaptationRail({
     <aside className="hidden h-full border-l border-white/10 bg-slate-950/45 p-4 xl:flex xl:w-[308px] xl:flex-col xl:gap-4 xl:overflow-y-auto">
       <Card>
         <CardHeader>
-          <CardTitle>Scenario focus</CardTitle>
+          <CardTitle>What to look at</CardTitle>
           <CardDescription>
-            {condition?.primaryTest ?? "No primary adaptation assigned yet."}
+            {condition?.primaryTest ?? "No main focus assigned yet."}
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2 text-sm text-slate-300">
+        <CardContent className="space-y-3 text-sm text-slate-300">
           <p>{scenario.goal}</p>
           {condition?.secondaryTest ? (
             <div className="rounded-xl border border-white/10 bg-white/5 p-3 text-xs text-slate-400">
-              Secondary focus: {condition.secondaryTest}
+              {condition.secondaryTest}
+            </div>
+          ) : null}
+
+          {scenario.walkthroughSteps?.length ? (
+            <div className="rounded-xl border border-white/10 bg-slate-950/35 p-3">
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
+                Suggested steps
+              </div>
+              <ol className="mt-2 space-y-2 pl-4 text-sm text-slate-300">
+                {scenario.walkthroughSteps.map((step) => (
+                  <li key={step} className="list-decimal">
+                    {step}
+                  </li>
+                ))}
+              </ol>
             </div>
           ) : null}
         </CardContent>
@@ -41,9 +56,13 @@ export function AdaptationRail({
                   <CardDescription>{item.description}</CardDescription>
                 </div>
                 <Badge
-                  className={item.status === "implemented" ? "border-emerald-400/20 bg-emerald-500/10 text-emerald-200" : "border-amber-400/20 bg-amber-500/10 text-amber-200"}
+                  className={
+                    item.status === "implemented"
+                      ? "border-emerald-400/20 bg-emerald-500/10 text-emerald-200"
+                      : "border-amber-400/20 bg-amber-500/10 text-amber-200"
+                  }
                 >
-                  {item.status === "implemented" ? "Live" : "Placeholder"}
+                  {item.status === "implemented" ? "Ready" : "Later"}
                 </Badge>
               </div>
             </CardHeader>

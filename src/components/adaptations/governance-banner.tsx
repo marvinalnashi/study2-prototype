@@ -30,26 +30,26 @@ export function GovernanceBanner({
   const promptCopy = useMemo(() => {
     if (selectedPromptId === "p-s2-1") {
       return {
-        title: "Sensitive HR data request",
+        title: "Warning for salary-data request",
         message:
-          "This request touches salary-related internal data. The assistant should stay aggregate, avoid identifiers, and keep a human owner in the loop before anything is shared.",
-        riskTag: "HR / personal data",
-        freshnessTag: "Verify current HR policy",
-        actionTitle: "Review the safe path before answering",
+          "This request touches HR data. The answer should stay at a safe summary level, avoid personal details, and keep a human reviewer involved before it is shared.",
+        riskTag: "HR data",
+        freshnessTag: "Check latest HR policy",
+        actionTitle: "Suggested safe path",
         actionBody:
-          "Recommended safe path: keep the answer aggregated, avoid identifiable salary details, and route final use through the relevant HR or compliance owner.",
+          "Use broad patterns only, avoid naming people or exact salaries, and route the final wording through HR or compliance before it is sent on.",
       };
     }
 
     return {
-      title: "External sharing policy request",
+      title: "Warning for external-sharing request",
       message:
-        "This request may affect what internal information is shared outside the organisation. The assistant should rely on approved policy sources and signal that external sharing conditions still need review.",
-      riskTag: "External disclosure",
-      freshnessTag: "Verify latest sharing policy",
-      actionTitle: "Review the policy-safe response path",
+        "This request may lead to internal information being shared outside the organisation. The answer should rely on approved policy sources and make the limits of sharing clear.",
+      riskTag: "External sharing",
+      freshnessTag: "Check latest sharing policy",
+      actionTitle: "Suggested safe path",
       actionBody:
-        "Recommended safe path: summarise only approved sharing conditions, keep caveats visible, and ask for policy review before external use if the answer will be actioned.",
+        "Summarise only approved sharing conditions, keep caveats visible, and ask for policy review before the answer is used in a real external interaction.",
     };
   }, [selectedPromptId]);
 
@@ -63,10 +63,10 @@ export function GovernanceBanner({
       <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-            A09 · Governance banner
+            A09 · Sensitive request warning
           </div>
           <div className="text-[11px] text-slate-400">
-            Switch between a passive warning banner and a banner with an action prompt.
+            Compare a simple warning with a warning that also offers a review step.
           </div>
         </div>
 
@@ -75,23 +75,19 @@ export function GovernanceBanner({
             type="button"
             onClick={() => onVariantChange("passive")}
             className={`rounded-lg px-3 py-1.5 text-xs transition ${
-              variant === "passive"
-                ? "bg-violet-500 text-white"
-                : "text-slate-300 hover:bg-white/5"
+              variant === "passive" ? "bg-violet-500 text-white" : "text-slate-300 hover:bg-white/5"
             }`}
           >
-            Passive banner
+            Warning only
           </button>
           <button
             type="button"
             onClick={() => onVariantChange("action")}
             className={`rounded-lg px-3 py-1.5 text-xs transition ${
-              variant === "action"
-                ? "bg-violet-500 text-white"
-                : "text-slate-300 hover:bg-white/5"
+              variant === "action" ? "bg-violet-500 text-white" : "text-slate-300 hover:bg-white/5"
             }`}
           >
-            Banner + action prompt
+            Warning + review step
           </button>
         </div>
       </div>
@@ -109,7 +105,7 @@ export function GovernanceBanner({
                 {promptCopy.riskTag}
               </span>
               <span className="rounded-full border border-sky-300/20 bg-sky-200/10 px-2 py-0.5 text-[11px] text-sky-100">
-                Uncertainty: medium
+                Confidence: medium
               </span>
               <span className="rounded-full border border-emerald-300/20 bg-emerald-200/10 px-2 py-0.5 text-[11px] text-emerald-100">
                 {promptCopy.freshnessTag}
@@ -119,7 +115,7 @@ export function GovernanceBanner({
             <p className="mt-2 text-sm leading-6 text-amber-50/90">{promptCopy.message}</p>
 
             <div className="mt-2 text-xs text-slate-300">
-              Requested output from A06 framing: {requestedOutput}
+              Current output style from the setup card: {requestedOutput}
             </div>
 
             {variant === "action" ? (
@@ -130,7 +126,7 @@ export function GovernanceBanner({
                   onClick={() => setShowActionDetails((current) => !current)}
                 >
                   <ShieldCheck className="mr-2 h-4 w-4" />
-                  {showActionDetails ? "Hide review prompt" : "Review the governance prompt"}
+                  {showActionDetails ? "Hide review step" : "Show review step"}
                 </Button>
 
                 {showActionDetails ? (

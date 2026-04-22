@@ -31,6 +31,7 @@ export type ScenarioDefinition = {
   subtitle: string;
   goal: string;
   adaptations: string[];
+  walkthroughSteps?: string[];
   placeholderCards: Array<{
     id: string;
     label: string;

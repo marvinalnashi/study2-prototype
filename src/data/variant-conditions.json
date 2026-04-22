@@ -1,22 +1,22 @@
 [
   {
     "scenarioId": "s1",
-    "primaryTest": "A02 Role-Aware Response Detail",
-    "secondaryTest": "A03 Adaptive Interaction Control"
+    "primaryTest": "Main focus: A02 audience-aware answer",
+    "secondaryTest": "Also compare A03 detail levels"
   },
   {
     "scenarioId": "s2",
-    "primaryTest": "A06 Preflight Task Framing",
-    "secondaryTest": "A09 Governance Banner for Sensitive Contexts"
+    "primaryTest": "Main focus: A06 request check before answering",
+    "secondaryTest": "Also compare A09 warning styles"
   },
   {
     "scenarioId": "s3",
-    "primaryTest": "A08 Evidence Register",
-    "secondaryTest": "Embedded A07 / A14"
+    "primaryTest": "Main focus: A08 sources panel",
+    "secondaryTest": "Confidence and freshness are embedded in the sources view"
   },
   {
     "scenarioId": "s4",
-    "primaryTest": "A05 Work Artefact Composer",
-    "secondaryTest": "Presentation + document deliverables"
+    "primaryTest": "Main focus: A05 editable work output",
+    "secondaryTest": "Compare document output and presentation output"
   }
 ]

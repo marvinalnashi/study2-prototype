@@ -1,118 +1,128 @@
 [
   {
     "id": "s1",
-    "title": "Scenario 1 \u00b7 Ambiguous request",
-    "subtitle": "Tailor explanation depth to role, expertise, and task intent.",
-    "goal": "Test A02 Role-Aware Response Detail and A03 Adaptive Interaction Control.",
-    "adaptations": [
-      "A02",
-      "A03"
+    "title": "Scenario 1 · Ambiguous request",
+    "subtitle": "See how the answer changes for different audiences and detail levels.",
+    "goal": "Try A02 and A03 in a low-risk work question.",
+    "adaptations": ["A02", "A03"],
+    "walkthroughSteps": [
+      "Choose the first prompt and try one audience setting.",
+      "Send the prompt, read the answer, and notice the level of detail.",
+      "Use Next step to move to the second prompt and compare the response."
     ],
     "placeholderCards": [
       {
         "id": "a02",
-        "label": "A02 \u00b7 Role-aware response detail",
-        "description": "Implemented as role framing for new hires, managers, and specialists.",
+        "label": "A02 · Match the answer to the audience",
+        "description": "Switch between New hire, Manager, and Specialist to change the wording and focus of the reply.",
         "status": "implemented"
       },
       {
         "id": "a03",
-        "label": "A03 \u00b7 Adaptive interaction control",
-        "description": "Implemented as a compact in-chat slider for per-response detail selection.",
+        "label": "A03 · Change detail level per prompt",
+        "description": "Choose how short, guided, or thorough the next answer should be.",
         "status": "implemented"
       },
       {
         "id": "follow-up",
-        "label": "Next-step placeholder",
-        "description": "Reserved for later next-step prompts and task continuation logic.",
-        "status": "placeholder"
+        "label": "What to notice",
+        "description": "Check whether the answer feels easier to use when both the audience and detail level fit the task.",
+        "status": "implemented"
       }
     ]
   },
   {
     "id": "s2",
-    "title": "Scenario 2 \u00b7 Sensitive request",
-    "subtitle": "Reveal framing and governance cues before risky actions proceed.",
-    "goal": "Test A06 Preflight Task Framing and A09 Governance Banner with embedded uncertainty / recency cues.",
-    "adaptations": [
-      "A06",
-      "A09"
+    "title": "Scenario 2 · Sensitive request",
+    "subtitle": "Review the request first, then show a clear warning before answering.",
+    "goal": "Try A06 and A09 in a request that needs caution.",
+    "adaptations": ["A06", "A09"],
+    "walkthroughSteps": [
+      "Choose a sensitive prompt and review the short setup card.",
+      "Optionally open the full setup and change one or more dropdowns.",
+      "Send the prompt and check whether the warning and the final answer feel clear and useful."
     ],
     "placeholderCards": [
       {
         "id": "a06",
-        "label": "A06 \u00b7 Preflight task framing",
-        "description": "Implemented as a short framing card with an expandable intent canvas using dropdown selections.",
+        "label": "A06 · Check the request before answering",
+        "description": "The assistant shows a short setup card first and lets you edit it if needed.",
         "status": "implemented"
       },
       {
         "id": "a09",
-        "label": "A09 \u00b7 Governance banner",
-        "description": "Implemented with passive and actionable banner variants that reflect sensitive-context risk.",
+        "label": "A09 · Sensitive request warning",
+        "description": "You can compare a simple warning with a warning that also offers a review step.",
         "status": "implemented"
       },
       {
         "id": "embedded-a07-a14",
-        "label": "Embedded A07 / A14",
-        "description": "Scenario 2 responses preview uncertainty and freshness cues through framing and banner language.",
+        "label": "Extra cues inside the warning",
+        "description": "This scenario also hints at uncertainty and freshness without showing them as separate tools.",
         "status": "implemented"
       }
     ]
   },
   {
     "id": "s3",
-    "title": "Scenario 3 \u00b7 Evidence-heavy request",
-    "subtitle": "Inspect whether participants notice and trust evidence visibility patterns.",
-    "goal": "Test A08 Evidence Register with embedded uncertainty / recency cues.",
-    "adaptations": [
-      "A08"
+    "title": "Scenario 3 · Evidence-heavy request",
+    "subtitle": "Open the Sources view to inspect what supported the answer.",
+    "goal": "Try A08 and see whether the evidence makes the answer easier to trust.",
+    "adaptations": ["A08"],
+    "walkthroughSteps": [
+      "Choose a prompt and send it to get an evidence-based answer.",
+      "Open Sources inside the reply.",
+      "Click a used, omitted, or inaccessible source to inspect the details."
     ],
     "placeholderCards": [
       {
         "id": "a08",
-        "label": "A08 \u00b7 Evidence register",
-        "description": "Implemented with an inline evidence panel and a side-panel / pop-up ledger variant.",
+        "label": "A08 · Sources panel",
+        "description": "The reply includes a Sources button that opens the evidence directly inside the message.",
         "status": "implemented"
       },
       {
         "id": "embedded-a07",
-        "label": "Embedded A07",
-        "description": "Confidence / uncertainty is embedded inside the evidence register rather than shown as a separate adaptation.",
+        "label": "Confidence cue",
+        "description": "The sources panel also shows how certain the assistant is about the answer.",
         "status": "implemented"
       },
       {
         "id": "embedded-a14",
-        "label": "Embedded A14",
-        "description": "Freshness / recency metadata is embedded inside the evidence register rather than shown separately.",
+        "label": "Freshness cue",
+        "description": "The sources panel also shows whether the supporting information is current.",
         "status": "implemented"
       }
     ]
   },
   {
     "id": "s4",
-    "title": "Scenario 4 \u00b7 Output generation",
-    "subtitle": "Generate a practical artefact instead of a chat-only answer.",
-    "goal": "Test A05 Work Artefact Composer through one presentation flow and one document flow.",
-    "adaptations": [
-      "A05"
+    "title": "Scenario 4 · Output generation",
+    "subtitle": "Open an editable work output instead of receiving chat text only.",
+    "goal": "Try A05 through one document flow and one presentation flow.",
+    "adaptations": ["A05"],
+    "walkthroughSteps": [
+      "Choose the document prompt or the presentation prompt.",
+      "Send the prompt to open the editor inside the chat.",
+      "Make a small change and export the result."
     ],
     "placeholderCards": [
       {
         "id": "a05",
-        "label": "A05 \u00b7 Work artefact composer",
-        "description": "Implemented as embedded editors for a presentation artefact and a document artefact.",
+        "label": "A05 · Work output editor",
+        "description": "The assistant can return an editable document or slide deck instead of only a text reply.",
         "status": "implemented"
       },
       {
         "id": "presentation-flow",
-        "label": "Presentation editor",
-        "description": "Supports slide-level dropdown editing, up to 15 slides, and PPTX export.",
+        "label": "Presentation flow",
+        "description": "Edit slide content, add visuals, and export the deck as a PPTX file.",
         "status": "implemented"
       },
       {
         "id": "document-flow",
-        "label": "Document editor",
-        "description": "Supports A4-style page editing with block reordering, images, and DOCX export.",
+        "label": "Document flow",
+        "description": "Edit page content, place images, and export the result as a DOCX file.",
         "status": "implemented"
       }
     ]

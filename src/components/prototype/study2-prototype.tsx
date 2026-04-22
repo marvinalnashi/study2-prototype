@@ -58,15 +58,18 @@ export function Study2Prototype() {
 
   const introDescription = useMemo(() => {
     if (state.context.scenarioId === "s1") {
-      return "Scenario 1 combines A02 role-aware framing with A03 per-prompt detail control.";
+      return "Try how the same request changes when the audience and detail level change.";
     }
     if (state.context.scenarioId === "s2") {
-      return "Scenario 2 combines A06 preflight framing with A09 governance banner variants and embedded uncertainty / recency cues.";
+      return "Review the setup first, then compare how the warning changes the answer path.";
+    }
+    if (state.context.scenarioId === "s3") {
+      return "Send a prompt, then open Sources inside the reply to inspect the evidence behind it.";
     }
     if (state.context.scenarioId === "s4") {
-      return "Scenario 4 embeds an artefact editor directly in the assistant response instead of relying on chat-only output.";
+      return "Send a prompt to open an editable work output directly inside the conversation.";
     }
-    return "Scenario 3 uses an in-bubble Sources action to reveal the evidence register only after a response has been generated.";
+    return "This area simulates a lightweight enterprise assistant walkthrough.";
   }, [state.context.scenarioId]);
 
   return (
@@ -143,7 +146,7 @@ export function Study2Prototype() {
 
               <Card className="min-h-[320px] xl:min-h-[380px]">
                 <CardHeader>
-                  <CardTitle>Conversation area</CardTitle>
+                  <CardTitle>Conversation</CardTitle>
                   <CardDescription>{introDescription}</CardDescription>
                 </CardHeader>
                 <CardContent className="max-h-[46dvh] space-y-4 overflow-y-auto pr-2 xl:max-h-[52dvh]">
@@ -159,6 +162,7 @@ export function Study2Prototype() {
           <ChatComposer
             scenarioId={state.context.scenarioId}
             selectedPromptId={state.context.selectedPromptId}
+            completedPromptIds={state.context.completedPromptIds}
             onPromptChange={(promptId) => send({ type: "PROMPT.SELECT", promptId })}
             onSend={() =>
               send({
@@ -167,6 +171,7 @@ export function Study2Prototype() {
                 bannerVariant: state.context.scenarioId === "s2" ? bannerVariant : null,
               })
             }
+            onNextStep={() => send({ type: "CHAT.NEXT_STEP" })}
             onReset={() => send({ type: "CHAT.RESET" })}
           />
         </section>

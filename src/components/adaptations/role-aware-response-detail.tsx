@@ -15,9 +15,9 @@ export function RoleAwareResponseDetail({
     <div className="rounded-xl border border-white/10 bg-white/5 p-3">
       <div className="mb-2 flex items-center justify-between gap-3">
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-          A02 · Role-aware response detail
+          A02 · Match the answer to the audience
         </div>
-        <div className="text-[11px] text-slate-400">Tailor wording and detail to the intended audience.</div>
+        <div className="text-[11px] text-slate-400">Choose who the next answer is for.</div>
       </div>
 
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
@@ -39,7 +39,7 @@ export function RoleAwareResponseDetail({
         ))}
       </div>
 
-      {selected ? <div className="mt-2 text-[11px] text-slate-400">Current framing: {selected.label}.</div> : null}
+      {selected ? <div className="mt-2 text-[11px] text-slate-400">Current audience: {selected.label}.</div> : null}
     </div>
   );
 }

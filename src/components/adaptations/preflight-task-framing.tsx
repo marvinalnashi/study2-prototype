@@ -30,10 +30,10 @@ export function PreflightTaskFraming({
     () => [
       { label: "Goal", value: labelFor(workArtefactOptions.intentFraming.goals, appliedSelection.goal) },
       { label: "Audience", value: labelFor(workArtefactOptions.intentFraming.audiences, appliedSelection.audience) },
-      { label: "Constraint", value: labelFor(workArtefactOptions.intentFraming.constraints, appliedSelection.constraints) },
-      { label: "Allowed sources", value: labelFor(workArtefactOptions.intentFraming.allowedSources, appliedSelection.allowedSources) },
+      { label: "Limit", value: labelFor(workArtefactOptions.intentFraming.constraints, appliedSelection.constraints) },
+      { label: "Sources", value: labelFor(workArtefactOptions.intentFraming.allowedSources, appliedSelection.allowedSources) },
       {
-        label: "Requested output",
+        label: "Output",
         value: labelFor(workArtefactOptions.intentFraming.requestedOutputs, appliedSelection.requestedOutput),
       },
     ],
@@ -45,9 +45,9 @@ export function PreflightTaskFraming({
       <div className="rounded-xl border border-white/10 bg-white/5 p-3">
         <div className="mb-2 flex items-center justify-between gap-3">
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-            A06 · Preflight task framing
+            A06 · Check the request before answering
           </div>
-          <div className="text-[11px] text-slate-400">Short confirmation card with editable framing.</div>
+          <div className="text-[11px] text-slate-400">Quick setup card with an optional full edit view.</div>
         </div>
         <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
           {summary.map((item) => (
@@ -62,11 +62,11 @@ export function PreflightTaskFraming({
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-400/15 bg-emerald-500/8 px-3 py-2 text-xs text-emerald-100">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4" />
-            This framing will be applied before the assistant answers the sensitive prompt.
+            The assistant will use this setup before answering the sensitive request.
           </div>
           <Button type="button" variant="outline" onClick={onOpenEditor}>
             <SquarePen className="mr-2 h-4 w-4" />
-            Review / edit framing
+            Edit setup
           </Button>
         </div>
       </div>
@@ -77,9 +77,9 @@ export function PreflightTaskFraming({
     <div className="rounded-xl border border-white/10 bg-white/5 p-3">
       <div className="mb-2 flex items-center justify-between gap-3">
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-          A06 · Intent canvas
+          A06 · Edit request setup
         </div>
-        <div className="text-[11px] text-slate-400">Dropdown-only framing for the sensitive request path.</div>
+        <div className="text-[11px] text-slate-400">Pick the options the assistant should use for this reply.</div>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -96,19 +96,19 @@ export function PreflightTaskFraming({
           onChange={(value) => onUpdateField("audience", value)}
         />
         <CanvasSelect
-          label="Constraints"
+          label="Limit"
           value={draftSelection.constraints}
           options={workArtefactOptions.intentFraming.constraints}
           onChange={(value) => onUpdateField("constraints", value)}
         />
         <CanvasSelect
-          label="Allowed sources"
+          label="Sources"
           value={draftSelection.allowedSources}
           options={workArtefactOptions.intentFraming.allowedSources}
           onChange={(value) => onUpdateField("allowedSources", value)}
         />
         <CanvasSelect
-          label="Requested output"
+          label="Output"
           value={draftSelection.requestedOutput}
           options={workArtefactOptions.intentFraming.requestedOutputs}
           onChange={(value) => onUpdateField("requestedOutput", value)}
@@ -120,7 +120,7 @@ export function PreflightTaskFraming({
           Cancel
         </Button>
         <Button type="button" onClick={onApply}>
-          Use this framing
+          Use this setup
         </Button>
       </div>
     </div>
