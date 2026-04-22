@@ -12,10 +12,12 @@ import { AdaptiveInteractionControl } from "@/components/adaptations/adaptive-in
 import { RoleAwareResponseDetail } from "@/components/adaptations/role-aware-response-detail";
 import { PreflightTaskFraming } from "@/components/adaptations/preflight-task-framing";
 import { GovernanceBanner } from "@/components/adaptations/governance-banner";
+import { EvidenceRegister } from "@/components/adaptations/evidence-register";
 import { ChatComposer } from "@/components/chat/chat-composer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lightbulb, ShieldAlert, FileOutput, SearchCheck } from "lucide-react";
 import type {
+  EvidenceRegisterVariant,
   GovernanceBannerVariant,
   IntentFramingSelection,
 } from "@/types/prototype";
@@ -44,6 +46,7 @@ export function Study2Prototype() {
   const [draftFraming, setDraftFraming] = useState<IntentFramingSelection>(defaultFraming);
   const [appliedFraming, setAppliedFraming] = useState<IntentFramingSelection>(defaultFraming);
   const [bannerVariant, setBannerVariant] = useState<GovernanceBannerVariant>("passive");
+  const [evidenceVariant, setEvidenceVariant] = useState<EvidenceRegisterVariant>("inline");
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -54,6 +57,9 @@ export function Study2Prototype() {
       setIsFramingEditorOpen(false);
       setBannerVariant("passive");
     }
+    if (state.context.scenarioId !== "s3") {
+      setEvidenceVariant("inline");
+    }
   }, [state.context.scenarioId]);
 
   const introDescription = useMemo(() => {
@@ -62,6 +68,9 @@ export function Study2Prototype() {
     }
     if (state.context.scenarioId === "s2") {
       return "Scenario 2 combines A06 preflight framing with A09 governance banner variants and embedded uncertainty / recency cues.";
+    }
+    if (state.context.scenarioId === "s3") {
+      return "Scenario 3 compares two A08 Evidence Register variants while keeping uncertainty and freshness cues embedded in the evidence view.";
     }
     if (state.context.scenarioId === "s4") {
       return "Scenario 4 embeds an artefact editor directly in the assistant response instead of relying on chat-only output.";
@@ -137,6 +146,14 @@ export function Study2Prototype() {
                         framing={appliedFraming}
                       />
                     </>
+                  ) : null}
+
+                  {state.context.scenarioId === "s3" ? (
+                    <EvidenceRegister
+                      variant={evidenceVariant}
+                      onVariantChange={setEvidenceVariant}
+                      selectedPromptId={state.context.selectedPromptId}
+                    />
                   ) : null}
                 </CardContent>
               </Card>

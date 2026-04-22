@@ -1,20 +1,23 @@
 [
   {
     "id": "s1",
-    "title": "Scenario 1 · Ambiguous request",
+    "title": "Scenario 1 \u00b7 Ambiguous request",
     "subtitle": "Tailor explanation depth to role, expertise, and task intent.",
     "goal": "Test A02 Role-Aware Response Detail and A03 Adaptive Interaction Control.",
-    "adaptations": ["A02", "A03"],
+    "adaptations": [
+      "A02",
+      "A03"
+    ],
     "placeholderCards": [
       {
         "id": "a02",
-        "label": "A02 · Role-aware response detail",
+        "label": "A02 \u00b7 Role-aware response detail",
         "description": "Implemented as role framing for new hires, managers, and specialists.",
         "status": "implemented"
       },
       {
         "id": "a03",
-        "label": "A03 · Adaptive interaction control",
+        "label": "A03 \u00b7 Adaptive interaction control",
         "description": "Implemented as a compact in-chat slider for per-response detail selection.",
         "status": "implemented"
       },
@@ -28,68 +31,75 @@
   },
   {
     "id": "s2",
-    "title": "Scenario 2 · Sensitive request",
+    "title": "Scenario 2 \u00b7 Sensitive request",
     "subtitle": "Reveal framing and governance cues before risky actions proceed.",
     "goal": "Test A06 Preflight Task Framing and A09 Governance Banner with embedded uncertainty / recency cues.",
-    "adaptations": ["A06", "A09"],
+    "adaptations": [
+      "A06",
+      "A09"
+    ],
     "placeholderCards": [
       {
         "id": "a06",
-        "label": "A06 · Preflight task framing",
+        "label": "A06 \u00b7 Preflight task framing",
         "description": "Implemented as a short framing card with an expandable intent canvas using dropdown selections.",
         "status": "implemented"
       },
       {
         "id": "a09",
-        "label": "A09 · Governance banner",
-        "description": "Implemented as a switchable passive banner or banner + action prompt with risk context.",
+        "label": "A09 \u00b7 Governance banner",
+        "description": "Implemented with passive and actionable banner variants that reflect sensitive-context risk.",
         "status": "implemented"
       },
       {
         "id": "embedded-a07-a14",
         "label": "Embedded A07 / A14",
-        "description": "Scenario 2 surfaces uncertainty and freshness cues inside the governance banner and final response.",
+        "description": "Scenario 2 responses preview uncertainty and freshness cues through framing and banner language.",
         "status": "implemented"
       }
     ]
   },
   {
     "id": "s3",
-    "title": "Scenario 3 · Evidence-heavy request",
+    "title": "Scenario 3 \u00b7 Evidence-heavy request",
     "subtitle": "Inspect whether participants notice and trust evidence visibility patterns.",
     "goal": "Test A08 Evidence Register with embedded uncertainty / recency cues.",
-    "adaptations": ["A08"],
+    "adaptations": [
+      "A08"
+    ],
     "placeholderCards": [
       {
         "id": "a08",
-        "label": "A08 · Evidence register",
-        "description": "Placeholder for inline evidence panel and side-panel / ledger variants.",
-        "status": "placeholder"
+        "label": "A08 \u00b7 Evidence register",
+        "description": "Implemented with an inline evidence panel and a side-panel / pop-up ledger variant.",
+        "status": "implemented"
       },
       {
         "id": "embedded-a07",
         "label": "Embedded A07",
-        "description": "Confidence / uncertainty will later appear inside the evidence components.",
-        "status": "placeholder"
+        "description": "Confidence / uncertainty is embedded inside the evidence register rather than shown as a separate adaptation.",
+        "status": "implemented"
       },
       {
         "id": "embedded-a14",
         "label": "Embedded A14",
-        "description": "Freshness / recency metadata will later be displayed inside the evidence components.",
-        "status": "placeholder"
+        "description": "Freshness / recency metadata is embedded inside the evidence register rather than shown separately.",
+        "status": "implemented"
       }
     ]
   },
   {
     "id": "s4",
-    "title": "Scenario 4 · Output generation",
+    "title": "Scenario 4 \u00b7 Output generation",
     "subtitle": "Generate a practical artefact instead of a chat-only answer.",
     "goal": "Test A05 Work Artefact Composer through one presentation flow and one document flow.",
-    "adaptations": ["A05"],
+    "adaptations": [
+      "A05"
+    ],
     "placeholderCards": [
       {
         "id": "a05",
-        "label": "A05 · Work artefact composer",
+        "label": "A05 \u00b7 Work artefact composer",
         "description": "Implemented as embedded editors for a presentation artefact and a document artefact.",
         "status": "implemented"
       },

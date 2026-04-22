@@ -6,6 +6,8 @@ export type RolePersona = "new_hire" | "manager" | "specialist";
 
 export type GovernanceBannerVariant = "passive" | "action";
 
+export type EvidenceRegisterVariant = "inline" | "ledger";
+
 export type MessageRole = "assistant" | "user";
 
 export type WorkArtefactKind = "presentation" | "document";
