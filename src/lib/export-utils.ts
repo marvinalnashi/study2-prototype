@@ -60,11 +60,9 @@ export async function exportPresentationAsPptx({
   pptx.company = "Study 2 Prototype";
   pptx.subject = artefactLabel;
   pptx.title = artefactLabel;
-  pptx.lang = "en-US";
   pptx.theme = {
     headFontFace: "Aptos Display",
     bodyFontFace: "Aptos",
-    lang: "en-US",
   };
 
   const titleOptions = workArtefactOptions.presentation.titleOptions;
