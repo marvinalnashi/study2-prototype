@@ -1,22 +1,22 @@
 [
   {
     "scenarioId": "s1",
-    "primaryTest": "Main focus: A02 audience-aware answer",
-    "secondaryTest": "Also compare A03 detail levels"
+    "primaryTest": "Main focus: does the answer fit the audience?",
+    "secondaryTest": "Also compare the four answer-detail options."
   },
   {
     "scenarioId": "s2",
-    "primaryTest": "Main focus: A06 request check before answering",
-    "secondaryTest": "Also compare A09 warning styles"
+    "primaryTest": "Main focus: does the assistant check a sensitive request before answering?",
+    "secondaryTest": "Also compare a simple warning with a warning that shows a safer review step."
   },
   {
     "scenarioId": "s3",
-    "primaryTest": "Main focus: A08 sources panel",
-    "secondaryTest": "Confidence and freshness are embedded in the sources view"
+    "primaryTest": "Main focus: do the sources make the answer easier to judge?",
+    "secondaryTest": "Confidence and freshness are shown inside the Sources view."
   },
   {
     "scenarioId": "s4",
-    "primaryTest": "Main focus: A05 editable work output",
-    "secondaryTest": "Compare document output and presentation output"
+    "primaryTest": "Main focus: is an editable output more useful than a normal chat reply?",
+    "secondaryTest": "Compare the document editor and the presentation editor."
   }
 ]

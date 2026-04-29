@@ -45,9 +45,9 @@ export function PreflightTaskFraming({
       <div className="rounded-xl border border-white/10 bg-white/5 p-3">
         <div className="mb-2 flex items-center justify-between gap-3">
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-            A06 · Check the request before answering
+            A06 · Request check
           </div>
-          <div className="text-[11px] text-slate-400">Quick setup card with an optional full edit view.</div>
+          <div className="text-[11px] text-slate-400">Review the setup before the assistant answers.</div>
         </div>
         <div className="grid gap-2 md:grid-cols-2 xl:grid-cols-3">
           {summary.map((item) => (
@@ -62,7 +62,7 @@ export function PreflightTaskFraming({
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-400/15 bg-emerald-500/8 px-3 py-2 text-xs text-emerald-100">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4" />
-            The assistant will use this setup before answering the sensitive request.
+            The assistant will use this setup for the sensitive answer.
           </div>
           <Button type="button" variant="outline" onClick={onOpenEditor}>
             <SquarePen className="mr-2 h-4 w-4" />
@@ -77,9 +77,9 @@ export function PreflightTaskFraming({
     <div className="rounded-xl border border-white/10 bg-white/5 p-3">
       <div className="mb-2 flex items-center justify-between gap-3">
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-          A06 · Edit request setup
+          A06 · Edit request check
         </div>
-        <div className="text-[11px] text-slate-400">Pick the options the assistant should use for this reply.</div>
+        <div className="text-[11px] text-slate-400">Pick what the assistant should assume before answering.</div>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">

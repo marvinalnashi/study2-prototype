@@ -1,128 +1,128 @@
 [
   {
     "id": "s1",
-    "title": "Scenario 1 · Ambiguous request",
-    "subtitle": "See how the answer changes for different audiences and detail levels.",
-    "goal": "Try A02 and A03 in a low-risk work question.",
+    "title": "Scenario 1 · Tailor a normal work answer",
+    "subtitle": "Compare how the same request changes for a new hire, a manager, or a specialist.",
+    "goal": "Use A02 and A03 to see whether the answer fits the audience and the amount of detail needed.",
     "adaptations": ["A02", "A03"],
     "walkthroughSteps": [
-      "Choose the first prompt and try one audience setting.",
-      "Send the prompt, read the answer, and notice the level of detail.",
-      "Use Next step to move to the second prompt and compare the response."
+      "Choose one of the two normal work prompts.",
+      "Select an audience and a detail level before sending it.",
+      "Use Next step to try the second prompt and compare the answer."
     ],
     "placeholderCards": [
       {
         "id": "a02",
-        "label": "A02 · Match the answer to the audience",
-        "description": "Switch between New hire, Manager, and Specialist to change the wording and focus of the reply.",
+        "label": "A02 · Audience-aware answer",
+        "description": "Choose whether the reply should be written for a new hire, a manager, or a specialist.",
         "status": "implemented"
       },
       {
         "id": "a03",
-        "label": "A03 · Change detail level per prompt",
-        "description": "Choose how short, guided, or thorough the next answer should be.",
+        "label": "A03 · Answer detail control",
+        "description": "Choose whether the next reply should be brief, balanced, step-by-step, or thorough.",
         "status": "implemented"
       },
       {
         "id": "follow-up",
         "label": "What to notice",
-        "description": "Check whether the answer feels easier to use when both the audience and detail level fit the task.",
+        "description": "Decide whether the reply becomes easier to use when the audience and detail level fit the task.",
         "status": "implemented"
       }
     ]
   },
   {
     "id": "s2",
-    "title": "Scenario 2 · Sensitive request",
-    "subtitle": "Review the request first, then show a clear warning before answering.",
-    "goal": "Try A06 and A09 in a request that needs caution.",
+    "title": "Scenario 2 · Handle a sensitive request",
+    "subtitle": "Review the request before answering and check whether the warning is helpful.",
+    "goal": "Use A06 and A09 to see whether sensitive requests are framed and signalled clearly.",
     "adaptations": ["A06", "A09"],
     "walkthroughSteps": [
-      "Choose a sensitive prompt and review the short setup card.",
-      "Optionally open the full setup and change one or more dropdowns.",
-      "Send the prompt and check whether the warning and the final answer feel clear and useful."
+      "Choose one of the sensitive prompts.",
+      "Review the request setup card and edit it if needed.",
+      "Send the prompt and judge whether the warning and answer feel safe and understandable."
     ],
     "placeholderCards": [
       {
         "id": "a06",
-        "label": "A06 · Check the request before answering",
-        "description": "The assistant shows a short setup card first and lets you edit it if needed.",
+        "label": "A06 · Request check before answering",
+        "description": "The assistant first checks the goal, audience, limits, sources, and output type before it answers.",
         "status": "implemented"
       },
       {
         "id": "a09",
-        "label": "A09 · Sensitive request warning",
-        "description": "You can compare a simple warning with a warning that also offers a review step.",
+        "label": "A09 · Sensitive-request warning",
+        "description": "Compare a simple warning with a warning that also shows a safer review step.",
         "status": "implemented"
       },
       {
         "id": "embedded-a07-a14",
-        "label": "Extra cues inside the warning",
-        "description": "This scenario also hints at uncertainty and freshness without showing them as separate tools.",
+        "label": "Confidence and freshness cues",
+        "description": "This scenario also shows when the answer should be checked against the latest policy.",
         "status": "implemented"
       }
     ]
   },
   {
     "id": "s3",
-    "title": "Scenario 3 · Evidence-heavy request",
-    "subtitle": "Open the Sources view to inspect what supported the answer.",
-    "goal": "Try A08 and see whether the evidence makes the answer easier to trust.",
+    "title": "Scenario 3 · Check the evidence behind an answer",
+    "subtitle": "Open Sources to see what the assistant used, ignored, or could not access.",
+    "goal": "Use A08 to decide whether the answer is supported well enough to trust.",
     "adaptations": ["A08"],
     "walkthroughSteps": [
-      "Choose a prompt and send it to get an evidence-based answer.",
-      "Open Sources inside the reply.",
-      "Click a used, omitted, or inaccessible source to inspect the details."
+      "Choose one of the evidence-heavy prompts.",
+      "Send it and read the answer first.",
+      "Open Sources and click at least one source card to inspect the details."
     ],
     "placeholderCards": [
       {
         "id": "a08",
-        "label": "A08 · Sources panel",
-        "description": "The reply includes a Sources button that opens the evidence directly inside the message.",
+        "label": "A08 · Evidence register",
+        "description": "The reply has a Sources button that opens the evidence directly inside the message.",
         "status": "implemented"
       },
       {
         "id": "embedded-a07",
         "label": "Confidence cue",
-        "description": "The sources panel also shows how certain the assistant is about the answer.",
+        "description": "The evidence view shows how confident the assistant is about the answer.",
         "status": "implemented"
       },
       {
         "id": "embedded-a14",
         "label": "Freshness cue",
-        "description": "The sources panel also shows whether the supporting information is current.",
+        "description": "The evidence view shows whether the sources are current or possibly outdated.",
         "status": "implemented"
       }
     ]
   },
   {
     "id": "s4",
-    "title": "Scenario 4 · Output generation",
-    "subtitle": "Open an editable work output instead of receiving chat text only.",
-    "goal": "Try A05 through one document flow and one presentation flow.",
+    "title": "Scenario 4 · Create an editable work output",
+    "subtitle": "Receive a document or slide deck that can be edited before downloading.",
+    "goal": "Use A05 to see whether an editable output is more useful than a normal chat reply.",
     "adaptations": ["A05"],
     "walkthroughSteps": [
       "Choose the document prompt or the presentation prompt.",
-      "Send the prompt to open the editor inside the chat.",
-      "Make a small change and export the result."
+      "Send the prompt to open the editor inside the conversation.",
+      "Make a small change and download the result."
     ],
     "placeholderCards": [
       {
         "id": "a05",
         "label": "A05 · Work output editor",
-        "description": "The assistant can return an editable document or slide deck instead of only a text reply.",
+        "description": "The assistant creates an editable document or slide deck instead of only giving text in chat.",
         "status": "implemented"
       },
       {
         "id": "presentation-flow",
-        "label": "Presentation flow",
-        "description": "Edit slide content, add visuals, and export the deck as a PPTX file.",
+        "label": "Presentation output",
+        "description": "Edit slide headings, slide text, and visuals, then export the deck as a PowerPoint file.",
         "status": "implemented"
       },
       {
         "id": "document-flow",
-        "label": "Document flow",
-        "description": "Edit page content, place images, and export the result as a DOCX file.",
+        "label": "Document output",
+        "description": "Edit document sections and images, then export the result as a Word file.",
         "status": "implemented"
       }
     ]

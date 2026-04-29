@@ -17,9 +17,7 @@ export function AdaptationRail({
       <Card>
         <CardHeader>
           <CardTitle>What to look at</CardTitle>
-          <CardDescription>
-            {condition?.primaryTest ?? "No main focus assigned yet."}
-          </CardDescription>
+          <CardDescription>{condition?.primaryTest ?? "No main focus assigned yet."}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3 text-sm text-slate-300">
           <p>{scenario.goal}</p>
@@ -31,9 +29,7 @@ export function AdaptationRail({
 
           {scenario.walkthroughSteps?.length ? (
             <div className="rounded-xl border border-white/10 bg-slate-950/35 p-3">
-              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">
-                Suggested steps
-              </div>
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Steps</div>
               <ol className="mt-2 space-y-2 pl-4 text-sm text-slate-300">
                 {scenario.walkthroughSteps.map((step) => (
                   <li key={step} className="list-decimal">

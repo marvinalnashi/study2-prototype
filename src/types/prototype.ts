@@ -20,6 +20,7 @@ export type PromptOption = {
   id: string;
   scenarioId: ScenarioId;
   label: string;
+  caseText?: string;
   prompt: string;
   responses?: Partial<Record<DetailLevel, string>>;
   artefactKind?: WorkArtefactKind;

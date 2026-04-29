@@ -3,39 +3,39 @@
     {
       "id": "brief",
       "label": "Brief",
-      "hint": "Short answer with only the essentials."
+      "hint": "Only the key point and next action."
     },
     {
       "id": "standard",
       "label": "Standard",
-      "hint": "Balanced answer for everyday work."
+      "hint": "A balanced answer for normal work."
     },
     {
       "id": "guided",
-      "label": "Guided",
-      "hint": "More structure, steps, and explanation."
+      "label": "Step by step",
+      "hint": "More structure and examples."
     },
     {
       "id": "audit",
       "label": "Thorough",
-      "hint": "Maximum detail, reasoning, and traceability."
+      "hint": "More detail, checks, and reasoning."
     }
   ],
   "rolePersonas": [
     {
       "id": "new_hire",
       "label": "New hire",
-      "hint": "Add basic definitions and a little extra orientation."
+      "hint": "Explain basics and avoid unexplained jargon."
     },
     {
       "id": "manager",
       "label": "Manager",
-      "hint": "Focus on decisions, risks, and next actions."
+      "hint": "Focus on impact, risks, and decisions."
     },
     {
       "id": "specialist",
       "label": "Specialist",
-      "hint": "Use more domain language and less introduction."
+      "hint": "Use precise wording and skip obvious basics."
     }
   ]
 }

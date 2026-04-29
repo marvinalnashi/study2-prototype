@@ -15,11 +15,7 @@ import type {
 } from "@/types/prototype";
 import { Download, ImagePlus, Minus, MoveDown, MoveUp, Plus, Presentation, FileText } from "lucide-react";
 
-export function WorkArtefactComposer({
-  artefact,
-}: {
-  artefact: PresentationArtefactPayload | DocumentArtefactPayload;
-}) {
+export function WorkArtefactComposer({ artefact }: { artefact: PresentationArtefactPayload | DocumentArtefactPayload }) {
   if (artefact.type === "presentation") {
     return <PresentationComposer initialArtefact={artefact} />;
   }
@@ -65,10 +61,7 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
     setSlides((current) =>
       current.map((slide) => {
         if (slide.id !== slideId || slide.visuals.length >= 3) return slide;
-        return {
-          ...slide,
-          visuals: [...slide.visuals, visualOptions[0]?.id ?? "photo-team"],
-        };
+        return { ...slide, visuals: [...slide.visuals, visualOptions[0]?.id ?? "photo-team"] };
       }),
     );
   };
@@ -77,9 +70,9 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
     setSlides((current) =>
       current.map((slide) => {
         if (slide.id !== slideId) return slide;
-        const visuals = [...slide.visuals];
+        const visuals = slide.visuals.slice(0, 3);
         visuals[index] = visualId;
-        return { ...slide, visuals };
+        return { ...slide, visuals: visuals.filter(Boolean).slice(0, 3) };
       }),
     );
   };
@@ -88,7 +81,7 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
     setSlides((current) =>
       current.map((slide) => {
         if (slide.id !== slideId) return slide;
-        return { ...slide, visuals: slide.visuals.filter((_, visualIndex) => visualIndex !== index) };
+        return { ...slide, visuals: slide.visuals.filter((_, visualIndex) => visualIndex !== index).slice(0, 3) };
       }),
     );
   };
@@ -96,11 +89,7 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
   const handleExport = async () => {
     try {
       setIsExporting(true);
-      await exportPresentationAsPptx({
-        fileName: initialArtefact.fileName,
-        artefactLabel: initialArtefact.artefactLabel,
-        slides,
-      });
+      await exportPresentationAsPptx({ fileName: initialArtefact.fileName, artefactLabel: initialArtefact.artefactLabel, slides });
     } finally {
       setIsExporting(false);
     }
@@ -116,7 +105,7 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
               {initialArtefact.artefactLabel}
             </CardTitle>
             <CardDescription>
-              Dropdown-only presentation editor with PPTX export, slide add/remove, and up to 3 visuals per slide.
+              Edit the draft slides below, add visuals, and download the result as a PowerPoint file.
             </CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -137,7 +126,7 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <div className="text-sm font-semibold text-slate-100">Slide {index + 1}</div>
-                <div className="text-xs text-slate-400">Minimum 2 slides, maximum 15 slides.</div>
+                <div className="text-xs text-slate-400">Keep at least 2 slides and at most 15 slides.</div>
               </div>
               <Button type="button" variant="outline" onClick={() => removeSlide(slide.id)} disabled={slides.length <= 2}>
                 <Minus className="mr-2 h-4 w-4" />
@@ -147,28 +136,13 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
 
             <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_340px]">
               <div className="space-y-3">
-                <LabeledSelect
-                  label="Slide title"
-                  value={slide.titleOptionId}
-                  options={titleOptions}
-                  onChange={(value) => updateSlide(slide.id, { titleOptionId: value })}
-                />
-                <LabeledSelect
-                  label="Slide body"
-                  value={slide.bodyOptionId}
-                  options={bodyOptions}
-                  onChange={(value) => updateSlide(slide.id, { bodyOptionId: value })}
-                />
+                <LabeledSelect label="Slide title" value={slide.titleOptionId} options={titleOptions} onChange={(value) => updateSlide(slide.id, { titleOptionId: value })} />
+                <LabeledSelect label="Slide text" value={slide.bodyOptionId} options={bodyOptions} onChange={(value) => updateSlide(slide.id, { bodyOptionId: value })} />
 
                 <div className="rounded-xl border border-white/10 bg-slate-950/35 p-3">
                   <div className="mb-2 flex items-center justify-between gap-2">
-                    <div className="text-xs uppercase tracking-[0.12em] text-slate-500">Images / figures</div>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => addVisualSelector(slide.id)}
-                      disabled={slide.visuals.length >= 3}
-                    >
+                    <div className="text-xs uppercase tracking-[0.12em] text-slate-500">Images and figures</div>
+                    <Button type="button" variant="outline" onClick={() => addVisualSelector(slide.id)} disabled={slide.visuals.length >= 3}>
                       <ImagePlus className="mr-2 h-4 w-4" />
                       Add visual
                     </Button>
@@ -176,12 +150,12 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
 
                   {slide.visuals.length === 0 ? (
                     <div className="rounded-xl border border-dashed border-white/10 px-3 py-4 text-sm text-slate-400">
-                      No visual selected for this slide yet.
+                      No visual selected for this slide.
                     </div>
                   ) : null}
 
                   <div className="space-y-2">
-                    {slide.visuals.map((visualId, visualIndex) => (
+                    {slide.visuals.slice(0, 3).map((visualId, visualIndex) => (
                       <div key={`${slide.id}-${visualIndex}`} className="flex items-center gap-2">
                         <select
                           value={visualId}
@@ -189,9 +163,7 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
                           className="h-10 flex-1 rounded-xl border border-white/10 bg-slate-900/60 px-3 text-sm text-slate-100 outline-none focus:border-violet-400/40"
                         >
                           {visualOptions.map((option) => (
-                            <option key={option.id} value={option.id}>
-                              {option.label}
-                            </option>
+                            <option key={option.id} value={option.id}>{option.label}</option>
                           ))}
                         </select>
                         <Button type="button" variant="outline" onClick={() => removeVisual(slide.id, visualIndex)}>
@@ -205,14 +177,10 @@ function PresentationComposer({ initialArtefact }: { initialArtefact: Presentati
 
               <div className="rounded-[24px] border border-slate-300/20 bg-white p-4 text-slate-900 shadow-[0_16px_40px_rgba(15,23,42,0.16)]">
                 <div className="mb-3 text-xs uppercase tracking-[0.14em] text-slate-500">Slide preview</div>
-                <div className="text-xl font-semibold text-slate-900">
-                  {labelFrom(slide.titleOptionId, titleOptions)}
-                </div>
-                <div className="mt-3 text-sm leading-6 text-slate-700">
-                  {labelFrom(slide.bodyOptionId, bodyOptions)}
-                </div>
+                <div className="text-xl font-semibold text-slate-900">{labelFrom(slide.titleOptionId, titleOptions)}</div>
+                <div className="mt-3 text-sm leading-6 text-slate-700">{labelFrom(slide.bodyOptionId, bodyOptions)}</div>
                 <div className={cn("mt-4 grid gap-2", slide.visuals.length <= 1 ? "grid-cols-1" : slide.visuals.length === 2 ? "grid-cols-2" : "grid-cols-3")}>
-                  {slide.visuals.map((visualId, visualIndex) => {
+                  {slide.visuals.slice(0, 3).map((visualId, visualIndex) => {
                     const visual = visualMap[visualId];
                     if (!visual) return null;
                     return (
@@ -251,8 +219,8 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
             {
               id: createId("block"),
               type: "text",
-              titleOptionId: titleOptions[0]?.id ?? "doc-overview",
-              bodyOptionId: bodyOptions[0]?.id ?? "doc-body-overview",
+              titleOptionId: titleOptions[0]?.id ?? "doc-mission",
+              bodyOptionId: bodyOptions[0]?.id ?? "doc-body-mission",
             },
           ],
         },
@@ -271,10 +239,7 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
     setPages((current) =>
       current.map((page) =>
         page.id === pageId
-          ? {
-              ...page,
-              blocks: page.blocks.map((block) => (block.id === blockId ? updater(block) : block)),
-            }
+          ? { ...page, blocks: page.blocks.map((block) => (block.id === blockId ? updater(block) : block)) }
           : page,
       ),
     );
@@ -291,8 +256,8 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
                 {
                   id: createId("block"),
                   type: "text",
-                  titleOptionId: titleOptions[0]?.id ?? "doc-overview",
-                  bodyOptionId: bodyOptions[0]?.id ?? "doc-body-overview",
+                  titleOptionId: titleOptions[0]?.id ?? "doc-mission",
+                  bodyOptionId: bodyOptions[0]?.id ?? "doc-body-mission",
                 },
               ],
             }
@@ -305,17 +270,7 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
     setPages((current) =>
       current.map((page) =>
         page.id === pageId
-          ? {
-              ...page,
-              blocks: [
-                ...page.blocks,
-                {
-                  id: createId("block"),
-                  type: "image",
-                  visualId: visualOptions[0]?.id ?? "photo-team",
-                },
-              ],
-            }
+          ? { ...page, blocks: [...page.blocks, { id: createId("block"), type: "image", visualId: visualOptions[0]?.id ?? "photo-team" }] }
           : page,
       ),
     );
@@ -348,11 +303,7 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
   const handleExport = async () => {
     try {
       setIsExporting(true);
-      await exportDocumentAsDocx({
-        fileName: initialArtefact.fileName,
-        artefactLabel: initialArtefact.artefactLabel,
-        pages,
-      });
+      await exportDocumentAsDocx({ fileName: initialArtefact.fileName, artefactLabel: initialArtefact.artefactLabel, pages });
     } finally {
       setIsExporting(false);
     }
@@ -368,7 +319,7 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
               {initialArtefact.artefactLabel}
             </CardTitle>
             <CardDescription>
-              A4-style document editor with dropdown-only text/image blocks, page add/remove, and DOCX export.
+              Edit the document sections below, add or move images, and download the result as a Word file.
             </CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -389,21 +340,12 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <div className="text-sm font-semibold text-slate-100">Page {pageIndex + 1}</div>
-                <div className="text-xs text-slate-400">Minimum 2 pages, maximum 15 pages.</div>
+                <div className="text-xs text-slate-400">Keep at least 2 pages and at most 15 pages.</div>
               </div>
               <div className="flex flex-wrap gap-2">
-                <Button type="button" variant="outline" onClick={() => addTextBlock(page.id)}>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add text block
-                </Button>
-                <Button type="button" variant="outline" onClick={() => addImageBlock(page.id)}>
-                  <ImagePlus className="mr-2 h-4 w-4" />
-                  Add image block
-                </Button>
-                <Button type="button" variant="outline" onClick={() => removePage(page.id)} disabled={pages.length <= 2}>
-                  <Minus className="mr-2 h-4 w-4" />
-                  Remove page
-                </Button>
+                <Button type="button" variant="outline" onClick={() => addTextBlock(page.id)}><Plus className="mr-2 h-4 w-4" />Add text</Button>
+                <Button type="button" variant="outline" onClick={() => addImageBlock(page.id)}><ImagePlus className="mr-2 h-4 w-4" />Add image</Button>
+                <Button type="button" variant="outline" onClick={() => removePage(page.id)} disabled={pages.length <= 2}><Minus className="mr-2 h-4 w-4" />Remove page</Button>
               </div>
             </div>
 
@@ -412,72 +354,21 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
                 {page.blocks.map((block, blockIndex) => (
                   <div key={block.id} className="rounded-xl border border-white/10 bg-slate-950/35 p-3">
                     <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-                      <div className="text-xs uppercase tracking-[0.12em] text-slate-500">
-                        Block {blockIndex + 1} · {block.type === "text" ? "Text" : "Image"}
-                      </div>
+                      <div className="text-xs uppercase tracking-[0.12em] text-slate-500">Block {blockIndex + 1} · {block.type === "text" ? "Text" : "Image"}</div>
                       <div className="flex gap-2">
-                        <Button type="button" variant="outline" onClick={() => moveBlock(page.id, block.id, -1)} disabled={blockIndex === 0}>
-                          <MoveUp className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => moveBlock(page.id, block.id, 1)}
-                          disabled={blockIndex === page.blocks.length - 1}
-                        >
-                          <MoveDown className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => removeBlock(page.id, block.id)}
-                          disabled={page.blocks.length <= 1}
-                        >
-                          <Minus className="h-4 w-4" />
-                        </Button>
+                        <Button type="button" variant="outline" onClick={() => moveBlock(page.id, block.id, -1)} disabled={blockIndex === 0}><MoveUp className="h-4 w-4" /></Button>
+                        <Button type="button" variant="outline" onClick={() => moveBlock(page.id, block.id, 1)} disabled={blockIndex === page.blocks.length - 1}><MoveDown className="h-4 w-4" /></Button>
+                        <Button type="button" variant="outline" onClick={() => removeBlock(page.id, block.id)} disabled={page.blocks.length <= 1}><Minus className="h-4 w-4" /></Button>
                       </div>
                     </div>
 
                     {block.type === "text" ? (
                       <div className="grid gap-3 md:grid-cols-2">
-                        <LabeledSelect
-                          label="Section heading"
-                          value={block.titleOptionId ?? titleOptions[0]?.id ?? "doc-overview"}
-                          options={titleOptions}
-                          onChange={(value) =>
-                            updateBlock(page.id, block.id, (current) => ({
-                              ...current,
-                              type: "text",
-                              titleOptionId: value,
-                            }))
-                          }
-                        />
-                        <LabeledSelect
-                          label="Section text"
-                          value={block.bodyOptionId ?? bodyOptions[0]?.id ?? "doc-body-overview"}
-                          options={bodyOptions}
-                          onChange={(value) =>
-                            updateBlock(page.id, block.id, (current) => ({
-                              ...current,
-                              type: "text",
-                              bodyOptionId: value,
-                            }))
-                          }
-                        />
+                        <LabeledSelect label="Section heading" value={block.titleOptionId ?? titleOptions[0]?.id ?? "doc-mission"} options={titleOptions} onChange={(value) => updateBlock(page.id, block.id, (current) => ({ ...current, type: "text", titleOptionId: value }))} />
+                        <LabeledSelect label="Section text" value={block.bodyOptionId ?? bodyOptions[0]?.id ?? "doc-body-mission"} options={bodyOptions} onChange={(value) => updateBlock(page.id, block.id, (current) => ({ ...current, type: "text", bodyOptionId: value }))} />
                       </div>
                     ) : (
-                      <LabeledSelect
-                        label="Image / figure"
-                        value={block.visualId ?? visualOptions[0]?.id ?? "photo-team"}
-                        options={visualOptions.map((option) => ({ id: option.id, label: option.label }))}
-                        onChange={(value) =>
-                          updateBlock(page.id, block.id, () => ({
-                            id: block.id,
-                            type: "image",
-                            visualId: value,
-                          }))
-                        }
-                      />
+                      <LabeledSelect label="Image or figure" value={block.visualId ?? visualOptions[0]?.id ?? "photo-team"} options={visualOptions.map((option) => ({ id: option.id, label: option.label }))} onChange={(value) => updateBlock(page.id, block.id, () => ({ id: block.id, type: "image", visualId: value }))} />
                     )}
                   </div>
                 ))}
@@ -490,12 +381,8 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
                     if (block.type === "text") {
                       return (
                         <div key={block.id} className="space-y-2">
-                          <div className="text-base font-semibold text-slate-900">
-                            {labelFrom(block.titleOptionId, titleOptions)}
-                          </div>
-                          <div className="text-sm leading-6 text-slate-700">
-                            {labelFrom(block.bodyOptionId, bodyOptions)}
-                          </div>
+                          <div className="text-base font-semibold text-slate-900">{labelFrom(block.titleOptionId, titleOptions)}</div>
+                          <div className="text-sm leading-6 text-slate-700">{labelFrom(block.bodyOptionId, bodyOptions)}</div>
                         </div>
                       );
                     }
@@ -519,30 +406,12 @@ function DocumentComposer({ initialArtefact }: { initialArtefact: DocumentArtefa
   );
 }
 
-function LabeledSelect({
-  label,
-  value,
-  options,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  options: Array<{ id: string; label: string }>;
-  onChange: (value: string) => void;
-}) {
+function LabeledSelect({ label, value, options, onChange }: { label: string; value: string; options: Array<{ id: string; label: string }>; onChange: (value: string) => void }) {
   return (
     <label className="flex flex-col gap-2 rounded-xl border border-white/10 bg-slate-900/30 p-3 text-sm text-slate-200">
       <span className="text-xs uppercase tracking-[0.12em] text-slate-500">{label}</span>
-      <select
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="h-10 rounded-xl border border-white/10 bg-slate-900/60 px-3 text-sm text-slate-100 outline-none focus:border-violet-400/40"
-      >
-        {options.map((option) => (
-          <option key={option.id} value={option.id}>
-            {option.label}
-          </option>
-        ))}
+      <select value={value} onChange={(event) => onChange(event.target.value)} className="h-10 rounded-xl border border-white/10 bg-slate-900/60 px-3 text-sm text-slate-100 outline-none focus:border-violet-400/40">
+        {options.map((option) => (<option key={option.id} value={option.id}>{option.label}</option>))}
       </select>
     </label>
   );

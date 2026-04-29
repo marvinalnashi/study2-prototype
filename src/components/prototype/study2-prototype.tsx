@@ -15,10 +15,7 @@ import { GovernanceBanner } from "@/components/adaptations/governance-banner";
 import { ChatComposer } from "@/components/chat/chat-composer";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lightbulb, ShieldAlert, FileOutput, SearchCheck } from "lucide-react";
-import type {
-  GovernanceBannerVariant,
-  IntentFramingSelection,
-} from "@/types/prototype";
+import type { GovernanceBannerVariant, IntentFramingSelection } from "@/types/prototype";
 
 const scenarioIcons = {
   s1: Lightbulb,
@@ -58,16 +55,16 @@ export function Study2Prototype() {
 
   const introDescription = useMemo(() => {
     if (state.context.scenarioId === "s1") {
-      return "Try how the same request changes when the audience and detail level change.";
+      return "Choose an audience and detail level, then send one of the normal work prompts.";
     }
     if (state.context.scenarioId === "s2") {
-      return "Review the setup first, then compare how the warning changes the answer path.";
+      return "Check the request setup and warning before sending a sensitive prompt.";
     }
     if (state.context.scenarioId === "s3") {
-      return "Send a prompt, then open Sources inside the reply to inspect the evidence behind it.";
+      return "Send an evidence-heavy prompt, then open Sources to inspect the answer.";
     }
     if (state.context.scenarioId === "s4") {
-      return "Send a prompt to open an editable work output directly inside the conversation.";
+      return "Send a prompt to open an editable work output inside the conversation.";
     }
     return "This area simulates a lightweight enterprise assistant walkthrough.";
   }, [state.context.scenarioId]);
@@ -125,9 +122,7 @@ export function Study2Prototype() {
                           setDraftFraming(appliedFraming);
                           setIsFramingEditorOpen(false);
                         }}
-                        onUpdateField={(field, value) =>
-                          setDraftFraming((current) => ({ ...current, [field]: value }))
-                        }
+                        onUpdateField={(field, value) => setDraftFraming((current) => ({ ...current, [field]: value }))}
                         onApply={() => {
                           setAppliedFraming(draftFraming);
                           setIsFramingEditorOpen(false);

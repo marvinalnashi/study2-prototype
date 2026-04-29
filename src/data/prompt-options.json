@@ -2,69 +2,77 @@
   {
     "id": "p-s1-1",
     "scenarioId": "s1",
-    "label": "S1 · Explain an accessibility issue vs a usability issue",
-    "prompt": "I need to explain the difference between WCAG conformance findings and usability findings to a junior consultant before a client meeting.",
+    "label": "S1 · Explain accessibility findings vs usability findings",
+    "caseText": "You are preparing a client workshop about a digital service review. The participant should imagine they need a clear explanation that can be adapted for a new hire, a manager, or a specialist.",
+    "prompt": "Explain the difference between accessibility findings and usability findings for a client workshop.",
     "responses": {
-      "brief": "Short version:\n• A WCAG finding means something breaks an accessibility rule.\n• A usability finding means something is hard or confusing to use, even if it does not break a rule.\nExample: a missing form label is often a WCAG issue; a confusing step order is often a usability issue.",
-      "standard": "Use this explanation:\nA WCAG finding is a formal accessibility problem because it breaks a recognised rule or success criterion. A usability finding is a broader experience problem: the task may still be possible, but it feels confusing, slow, or frustrating.\n\nIn practice, tell the junior consultant that WCAG findings point to compliance risk, while usability findings point to experience improvements that still matter for many users.",
-      "guided": "Suggested explanation for the meeting:\n1. Start with the rule-based part: WCAG findings are accessibility failures against formal criteria.\n2. Then explain the wider experience part: usability findings describe friction points that may or may not be accessibility violations.\n3. Give one example: a missing label on a form field is likely a WCAG problem; a multi-step form with unclear progress is often a usability problem.\n4. End with a simple line they can reuse: “Accessibility findings show what must be fixed for compliance; usability findings show what should be improved for smoother use.”",
-      "audit": "Detailed version:\nWCAG findings are tied to codified accessibility requirements. They matter because they can create direct compliance exposure and measurable barriers for users with disabilities.\n\nUsability findings are broader. They describe places where the flow is hard to understand, slow to complete, or easy to get wrong. Some usability findings overlap with accessibility concerns, but many do not map directly to a WCAG criterion.\n\nRecommended meeting framing:\n• Use WCAG findings when talking about compliance, release risk, and accountability.\n• Use usability findings when talking about conversion, task success, satisfaction, and service quality.\n• Keep the two categories separate in the notes so the consultant does not mix severity, compliance risk, and design opportunities."
+      "brief": "Accessibility findings are about barriers that prevent people, especially people with disabilities, from using the service. Usability findings are about parts of the service that are confusing, slow, or frustrating, even when they do not break an accessibility rule.\n\nExample: a form field without a label is an accessibility finding. A long checkout flow with unclear steps is a usability finding.",
+      "standard": "Accessibility findings point to barriers that stop people from using a service fairly and independently. They often connect to formal requirements such as WCAG.\n\nUsability findings are broader. They describe places where the service is possible to use, but still feels unclear, inefficient, or frustrating.\n\nA simple way to explain it in the workshop is: accessibility findings show what may block or exclude users; usability findings show what makes the experience harder than it needs to be.",
+      "guided": "Use this structure in the workshop:\n\n1. Start with accessibility. These findings show barriers for users with disabilities or situations where the service does not meet accessibility requirements.\n2. Then explain usability. These findings show friction, confusion, or unnecessary effort for users in general.\n3. Give a concrete example: a missing label on an input field is an accessibility issue, while a confusing order of steps is usually a usability issue.\n4. Close with the business meaning: accessibility findings often need urgent compliance attention, while usability findings help improve task success and customer experience.",
+      "audit": "Workshop-ready explanation:\n\nAccessibility findings are linked to whether people can access and use the service, especially when they rely on assistive technology, alternative input methods, clear structure, or sufficient contrast. These findings often have legal, compliance, and inclusion implications.\n\nUsability findings are about the quality of the interaction. A feature can technically be accessible but still difficult to understand, too slow, or easy to use incorrectly.\n\nRecommended wording for the workshop: “Accessibility findings identify barriers that may exclude people or fail a standard. Usability findings identify friction that makes the service harder to use. We should fix both, but they answer different questions.”"
     }
   },
   {
     "id": "p-s1-2",
     "scenarioId": "s1",
-    "label": "S1 · Summarise accessibility test findings for leadership",
-    "prompt": "Summarise our accessibility test findings for leadership in a way that assumes they know the business context but not the technical details.",
+    "label": "S1 · Prepare a leadership update on test findings",
+    "caseText": "You are preparing a short update for leaders after an accessibility and usability test. The participant should imagine they need a version that avoids technical overload but still gives enough direction for action.",
+    "prompt": "Prepare a leadership update about the most important findings from an accessibility and usability test.",
     "responses": {
-      "brief": "Leadership summary:\nWe found a moderate level of accessibility risk. The biggest issues affect navigation, forms, and error handling. These should be fixed before the next release.",
-      "standard": "Leadership summary:\nOur testing shows a moderate accessibility risk. The most important issues affect navigation, form completion, and recovery from mistakes. These problems may increase compliance exposure and make key journeys harder to complete.\n\nRecommended action: prioritise the highest-impact fixes before the next release and track progress at leadership level.",
-      "guided": "Leadership summary:\n• Overall risk is moderate.\n• The most urgent issues affect navigation, forms, and error recovery.\n• These problems matter because they increase both compliance risk and user drop-off.\n• The team should fix the highest-impact items before the next release and report progress in a simple status update.\n\nKeep technical wording light and focus on business impact, urgency, and next action.",
-      "audit": "Leadership-ready summary:\nRisk level: moderate.\nMost affected journeys: navigation, form completion, and error recovery.\nWhy this matters: the issues may create compliance exposure, reduce task success, and affect customer trust.\nRecommended action: prioritise the highest-severity fixes before the next release, assign owners, and review progress at a leadership checkpoint.\nOptional appendix for specialists: keep the WCAG mapping and technical detail in a separate annex rather than the main leadership summary."
+      "brief": "The test found three priority areas: navigation, forms, and error messages. These issues create both user-experience risk and accessibility risk. The team should fix the highest-impact issues before the next release.",
+      "standard": "The test found a moderate level of risk in the current service. The most important findings are in navigation, form completion, and error recovery. These issues can make key tasks harder to complete and may create accessibility concerns for some users.\n\nRecommended next step: prioritise the highest-impact fixes, assign owners, and review progress before the next release decision.",
+      "guided": "Suggested leadership update:\n\n• Overall status: the service is usable, but there are several important risks.\n• Main problem areas: navigation, form completion, and error messages.\n• Why it matters: these issues can slow users down, increase drop-off, and create accessibility barriers.\n• Recommended decision: fix the highest-impact issues before the next release and track the remaining items in a visible action list.\n\nKeep the update focused on impact, risk, and decision-making rather than technical detail.",
+      "audit": "Leadership-ready update:\n\nOverall risk: moderate.\nMain affected areas: navigation, form completion, and error recovery.\nBusiness impact: lower task success, higher support need, possible compliance exposure, and reduced customer confidence.\nRecommended response: prioritise the highest-impact accessibility and usability fixes before release, assign clear owners, and schedule a short follow-up review with the product and compliance stakeholders.\n\nOptional appendix: keep the detailed WCAG mapping, screenshots, and test observations outside the main leadership message so the update remains readable."
     }
   },
   {
     "id": "p-s2-1",
     "scenarioId": "s2",
-    "label": "S2 · Draft a safe reply about salary data",
-    "prompt": "Draft a response to a manager who asked for a quick summary of role-based salary differences using internal HR data."
+    "label": "S2 · Reply to a manager asking about salary patterns",
+    "caseText": "You are an internal advisor. A manager asks for a quick explanation of salary differences between roles, but the request touches sensitive HR data.",
+    "prompt": "Draft a safe reply to a manager who asks for a quick explanation of salary differences between roles."
   },
   {
     "id": "p-s2-2",
     "scenarioId": "s2",
-    "label": "S2 · Summarise the policy for external sharing",
-    "prompt": "Summarise the policy conditions under which internal documentation may be shared with an external vendor."
+    "label": "S2 · Check if onboarding material can be shared with a vendor",
+    "caseText": "You are preparing to work with an external vendor. The participant should imagine they need to know whether internal onboarding material can be shared outside the organisation.",
+    "prompt": "Summarise when internal onboarding material may be shared with an external vendor."
   },
   {
     "id": "p-s3-1",
     "scenarioId": "s3",
-    "label": "S3 · Check whether the latest accessibility obligation applies",
-    "prompt": "Find evidence for whether the latest accessibility obligations apply to this organisation and show how trustworthy the answer is.",
+    "label": "S3 · Decide whether a new accessibility rule applies",
+    "caseText": "You are preparing advice for a product team that owns a customer portal. The participant should decide whether the assistant gives enough evidence to trust the answer.",
+    "prompt": "Find evidence for whether the latest accessibility obligation applies to our customer portal and show how trustworthy the answer is.",
     "responses": {
-      "standard": "Based on the sources available in this prototype, the latest accessibility obligation is likely relevant for this organisation, but the final answer still depends on the organisation’s exact scope.\n\nWhat supports that view:\n• The internal accessibility policy says customer-facing journeys in scope must be reviewed before release approval.\n• The public regulation summary says the obligation applies to organisations in the covered market segment, subject to sector and size conditions.\n• The implementation checklist turns that into concrete follow-up actions such as logging unresolved findings and assigning remediation owners.\n\nWhat to keep in mind:\n• One older source was left out because it uses outdated wording.\n• One blog-style source was left out because it overstated the rule.\n• One legal memo could not be opened in this prototype path.\n\nOpen Sources to inspect the exact fragments."
+      "standard": "The latest accessibility obligation is likely relevant for the customer portal, but the final decision still depends on the organisation’s exact scope and the type of digital service offered.\n\nThe strongest evidence points in the same direction:\n• The internal accessibility policy says customer-facing web journeys in scope must be reviewed before release approval.\n• The public regulation summary says the obligation applies to organisations in the covered market segment, subject to sector and size conditions.\n• The implementation checklist translates that obligation into concrete work: log unresolved findings, assign owners, and review fixes before the next release.\n\nThis answer is useful as a working conclusion, not as final legal advice. One older checklist was left out because it uses outdated wording, one blog-style source was left out because it overstates the rule, and one legal memo could not be opened in this prototype path.\n\nOpen Sources to inspect the exact fragments behind this answer."
     }
   },
   {
     "id": "p-s3-2",
     "scenarioId": "s3",
-    "label": "S3 · Compare two policy summaries with evidence",
-    "prompt": "Compare these two internal policy summaries and explain which evidence supports the differences you report.",
+    "label": "S3 · Compare two versions of an external-sharing policy",
+    "caseText": "You are checking two policy summaries before advising a project team. The participant should inspect the evidence to see which differences are real and which ones should be ignored.",
+    "prompt": "Compare two internal summaries of the external-sharing policy and explain which evidence supports the differences you report.",
     "responses": {
-      "standard": "The two policy summaries are broadly aligned, but they emphasise different parts of the approval process.\n\nMain differences:\n• Policy summary A makes team-lead approval explicit before external sharing.\n• Policy summary B focuses more on documenting the disclosure condition in the record.\n• The core rule is similar in both: sharing is allowed only after the correct approval and documentation steps are complete.\n\nWhy this answer is trustworthy:\n• The comparison is grounded in two current sources rather than an old summary deck.\n• An archived deck was left out because it exaggerated the difference between the two policies.\n• A working draft was left out because it was not approved for operational use.\n• A department exception log could not be accessed in this walkthrough path.\n\nOpen Sources to inspect the exact text fragments behind each point."
+      "standard": "The two policy summaries are mostly aligned, but they highlight different parts of the approval process.\n\nThe main difference is emphasis:\n• Summary A clearly says that team-lead approval is required before external sharing.\n• Summary B focuses more on recording the reason for disclosure after approval is logged.\n• Both point to the same practical rule: external sharing is allowed only when the correct approval and documentation steps are complete.\n\nThe comparison is limited by source quality. An archived slide deck was left out because it exaggerates the difference between the two summaries. A working draft was left out because it was not approved for use. A department exception log could not be accessed in this walkthrough path.\n\nOpen Sources to inspect the exact fragments behind each point."
     }
   },
   {
     "id": "p-s4-1",
     "scenarioId": "s4",
-    "label": "S4 · Turn meeting notes into a workshop outline document",
-    "prompt": "Turn the meeting notes into a structured workshop outline document that I can revise and download.",
+    "label": "S4 · Create a mission, vision, and values document",
+    "caseText": "You are preparing an internal onboarding document for a new transformation team. The participant should imagine they want a first editable draft rather than a normal chat answer.",
+    "prompt": "Create an editable internal document that explains the team’s mission, vision, values, and first priorities.",
     "artefactKind": "document"
   },
   {
     "id": "p-s4-2",
     "scenarioId": "s4",
-    "label": "S4 · Create a presentation outline for executives",
-    "prompt": "Create an executive presentation outline from the project update and organise it as a reusable deck.",
+    "label": "S4 · Build an executive presentation about project progress",
+    "caseText": "You are preparing a short update for senior stakeholders. The participant should imagine they need a slide deck that summarises progress, risks, and the decision needed.",
+    "prompt": "Create an editable executive presentation about project progress, risks, and the decision needed from leadership.",
     "artefactKind": "presentation"
   }
 ]

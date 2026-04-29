@@ -15,9 +15,9 @@ export function VisibleSliderControl({
     <div className="rounded-xl border border-white/10 bg-white/5 p-3">
       <div className="mb-2 flex items-center justify-between gap-3">
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-          A03 · Visible slider
+          A03 · Answer detail
         </div>
-        <div className="text-[11px] text-slate-400">Adjust guidance and evidence depth per prompt.</div>
+        <div className="text-[11px] text-slate-400">Choose how much detail the next answer should contain.</div>
       </div>
 
       <div className="relative mb-2 px-1">
@@ -43,7 +43,7 @@ export function VisibleSliderControl({
       </div>
 
       <div className="min-h-4 text-[11px] text-slate-400">
-        {selected ? `${selected.label}: ${selected.hint} Selection resets after sending.` : "Choose a depth for the next response."}
+        {selected ? `${selected.label}: ${selected.hint} This choice resets after sending.` : "Choose a detail level for the next response."}
       </div>
     </div>
   );

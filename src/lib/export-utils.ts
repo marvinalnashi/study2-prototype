@@ -1,16 +1,16 @@
 import PptxGenJS from "pptxgenjs";
 import {
   AlignmentType,
+  convertInchesToTwip,
   Document,
   HeadingLevel,
   ImageRun,
   Packer,
-  PageBreak,
   Paragraph,
   TextRun,
 } from "docx";
 import { visualMap, workArtefactOptions } from "@/lib/prototype-data";
-import type { DocumentPageTemplate, PresentationSlideTemplate } from "@/types/prototype";
+import type { DocumentBlockTemplate, DocumentPageTemplate, PresentationSlideTemplate } from "@/types/prototype";
 
 function downloadBlob(blob: Blob, fileName: string) {
   const url = URL.createObjectURL(blob);
@@ -23,6 +23,7 @@ function downloadBlob(blob: Blob, fileName: string) {
 
 async function fetchImageAsDataUrl(src: string) {
   const response = await fetch(src);
+  if (!response.ok) throw new Error(`Could not load image: ${src}`);
   const blob = await response.blob();
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -34,6 +35,7 @@ async function fetchImageAsDataUrl(src: string) {
 
 async function fetchImageAsUint8Array(src: string) {
   const response = await fetch(src);
+  if (!response.ok) throw new Error(`Could not load image: ${src}`);
   const arrayBuffer = await response.arrayBuffer();
   return new Uint8Array(arrayBuffer);
 }
@@ -54,7 +56,7 @@ export async function exportPresentationAsPptx({
 }) {
   const pptx = new PptxGenJS();
   pptx.layout = "LAYOUT_WIDE";
-  pptx.author = "OpenAI";
+  pptx.author = "Study 2 Prototype";
   pptx.company = "Study 2 Prototype";
   pptx.subject = artefactLabel;
   pptx.title = artefactLabel;
@@ -119,7 +121,7 @@ export async function exportPresentationAsPptx({
       }
     }
 
-    slide.addText("Prototype export · Study 2 work artefact composer", {
+    slide.addText("Study 2 prototype export", {
       x: 0.65,
       y: 6.65,
       w: 11.2,
@@ -134,6 +136,80 @@ export async function exportPresentationAsPptx({
   await pptx.writeFile({ fileName });
 }
 
+function createTextBlockParagraphs(block: DocumentBlockTemplate) {
+  const headingOptions = workArtefactOptions.document.titleOptions;
+  const bodyOptions = workArtefactOptions.document.bodyOptions;
+  const headingLabel = labelForOption(headingOptions, block.titleOptionId) || "Section";
+  const bodyLabel = labelForOption(bodyOptions, block.bodyOptionId) || "Choose a predefined text block.";
+
+  return [
+    new Paragraph({
+      spacing: { before: 180, after: 80 },
+      heading: HeadingLevel.HEADING_2,
+      children: [new TextRun({ text: headingLabel, bold: true, size: 24 })],
+    }),
+    new Paragraph({
+      spacing: { after: 180 },
+      children: [new TextRun({ text: bodyLabel, size: 22 })],
+    }),
+  ];
+}
+
+async function createImageBlockParagraphs(block: DocumentBlockTemplate) {
+  if (!block.visualId) return [];
+  const visual = visualMap[block.visualId];
+  if (!visual) return [];
+
+  const data = await fetchImageAsUint8Array(visual.src);
+
+  return [
+    new Paragraph({
+      spacing: { before: 140, after: 80 },
+      alignment: AlignmentType.CENTER,
+      children: [
+        new ImageRun({
+          data,
+          type: "png",
+          transformation: {
+            width: 420,
+            height: 220,
+          },
+        }),
+      ],
+    }),
+    new Paragraph({
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 160 },
+      children: [new TextRun({ text: visual.label, italics: true, color: "666666", size: 18 })],
+    }),
+  ];
+}
+
+async function createPageChildren(page: DocumentPageTemplate, pageIndex: number, artefactLabel: string) {
+  const children: Paragraph[] = [];
+
+  if (pageIndex === 0) {
+    children.push(
+      new Paragraph({
+        heading: HeadingLevel.TITLE,
+        alignment: AlignmentType.LEFT,
+        spacing: { after: 180 },
+        children: [new TextRun({ text: artefactLabel, bold: true, size: 34 })],
+      }),
+    );
+  }
+
+  for (const block of page.blocks) {
+    if (block.type === "text") {
+      children.push(...createTextBlockParagraphs(block));
+    } else {
+      children.push(...(await createImageBlockParagraphs(block)));
+    }
+  }
+
+  return children;
+}
+
 export async function exportDocumentAsDocx({
   fileName,
   artefactLabel,
@@ -143,76 +219,29 @@ export async function exportDocumentAsDocx({
   artefactLabel: string;
   pages: DocumentPageTemplate[];
 }) {
-  const headingOptions = workArtefactOptions.document.titleOptions;
-  const bodyOptions = workArtefactOptions.document.bodyOptions;
-  const children: Paragraph[] = [];
-
-  children.push(
-    new Paragraph({
-      heading: HeadingLevel.TITLE,
-      alignment: AlignmentType.LEFT,
-      children: [new TextRun({ text: artefactLabel, bold: true, size: 34 })],
-    }),
-  );
+  const sections = [];
 
   for (const [pageIndex, page] of pages.entries()) {
-    for (const block of page.blocks) {
-      if (block.type === "text") {
-        const headingLabel = labelForOption(headingOptions, block.titleOptionId);
-        const bodyLabel = labelForOption(bodyOptions, block.bodyOptionId);
-
-        children.push(
-          new Paragraph({
-            spacing: { before: 220, after: 120 },
-            heading: HeadingLevel.HEADING_2,
-            children: [new TextRun({ text: headingLabel || "Section", bold: true })],
-          }),
-        );
-        children.push(
-          new Paragraph({
-            spacing: { after: 180 },
-            children: [new TextRun({ text: bodyLabel || "Choose a predefined text block." })],
-          }),
-        );
-      } else if (block.visualId) {
-        const visual = visualMap[block.visualId];
-        if (!visual) continue;
-        const data = await fetchImageAsUint8Array(visual.src);
-        children.push(
-          new Paragraph({
-            spacing: { before: 120, after: 120 },
-            alignment: AlignmentType.CENTER,
-            children: [
-              new ImageRun({
-                data,
-                transformation: {
-                  width: 420,
-                  height: 220,
-                },
-              }),
-            ],
-          }),
-        );
-        children.push(
-          new Paragraph({
-            alignment: AlignmentType.CENTER,
-            spacing: { after: 180 },
-            children: [new TextRun({ text: visual.label, italics: true, color: "666666", size: 18 })],
-          }),
-        );
-      }
-    }
-
-    if (pageIndex < pages.length - 1) {
-      children.push(new Paragraph({ children: [new PageBreak()] }));
-    }
+    sections.push({
+      properties: {
+        page: {
+          margin: {
+            top: convertInchesToTwip(0.7),
+            right: convertInchesToTwip(0.75),
+            bottom: convertInchesToTwip(0.7),
+            left: convertInchesToTwip(0.75),
+          },
+        },
+      },
+      children: await createPageChildren(page, pageIndex, artefactLabel),
+    });
   }
 
   const doc = new Document({
-    creator: "OpenAI",
+    creator: "Study 2 Prototype",
     title: artefactLabel,
     description: "Study 2 prototype export",
-    sections: [{ properties: {}, children }],
+    sections,
   });
 
   const blob = await Packer.toBlob(doc);

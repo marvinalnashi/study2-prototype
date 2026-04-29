@@ -1,6 +1,6 @@
 "use client";
 
-import {JSX, useMemo, useState} from "react";
+import { JSX, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { EvidenceEntry, EvidenceLedger } from "@/types/prototype";
 import { BookMarked, Clock3, ExternalLink, Files, Lock, X } from "lucide-react";
@@ -25,14 +25,14 @@ export function EvidenceRegister({ ledger }: { ledger: EvidenceLedger }) {
         <p className="mt-2 text-sm leading-6 text-emerald-50/90">{ledger.summary}</p>
         <div className="mt-2 flex items-center gap-2 text-xs text-slate-300">
           <Clock3 className="h-3.5 w-3.5" />
-          Embedded A07 / A14 cues are shown through confidence and freshness metadata.
+          Confidence and freshness are shown here so the answer can be checked, not just accepted.
         </div>
       </div>
 
       <div className="mt-3 grid gap-3 xl:grid-cols-3">
         <EvidenceColumn
-          title="Used evidence"
-          description="What the assistant relied on in the answer."
+          title="Used sources"
+          description="Sources that shaped the answer."
           icon={<BookMarked className="h-4 w-4" />}
           tone="emerald"
           entries={ledger.used}
@@ -40,8 +40,8 @@ export function EvidenceRegister({ ledger }: { ledger: EvidenceLedger }) {
           onSelect={(entry) => setSelected({ entry, status: "used" })}
         />
         <EvidenceColumn
-          title="Considered but omitted"
-          description="What was checked but intentionally left out."
+          title="Checked but not used"
+          description="Sources the assistant ignored on purpose."
           icon={<Files className="h-4 w-4" />}
           tone="amber"
           entries={ledger.omitted}
@@ -49,8 +49,8 @@ export function EvidenceRegister({ ledger }: { ledger: EvidenceLedger }) {
           onSelect={(entry) => setSelected({ entry, status: "omitted" })}
         />
         <EvidenceColumn
-          title="Could not access"
-          description="What remained outside the assistant's accessible scope."
+          title="Could not open"
+          description="Sources that were outside the current access level."
           icon={<Lock className="h-4 w-4" />}
           tone="sky"
           entries={ledger.inaccessible}
@@ -122,7 +122,6 @@ function EvidenceColumn({
                 {entry.tag}
               </span>
             </div>
-            {/*<div className="mt-1 text-sm leading-6 text-slate-300">{entry.note}</div>*/}
           </button>
         ))}
       </div>
@@ -140,8 +139,8 @@ function EvidenceEntryModal({
   onClose: () => void;
 }) {
   const excerptHeading = useMemo(() => {
-    if (status === "used") return "Used text fragment";
-    if (status === "omitted") return "Omitted / rejected text fragment";
+    if (status === "used") return "Text used in the answer";
+    if (status === "omitted") return "Text that was rejected";
     return null;
   }, [status]);
 
@@ -164,8 +163,8 @@ function EvidenceEntryModal({
                 {status === "used"
                   ? "Used source"
                   : status === "omitted"
-                    ? "Considered but omitted source"
-                    : "Inaccessible source"}
+                    ? "Checked but not used"
+                    : "Could not open"}
               </div>
             </div>
 
@@ -177,7 +176,7 @@ function EvidenceEntryModal({
 
           <div className="space-y-4 px-5 py-4">
             <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Reasoning note</div>
+              <div className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-400">Why this source was handled this way</div>
               <p className="mt-2 text-sm leading-6 text-slate-100">{entry.note}</p>
             </div>
 

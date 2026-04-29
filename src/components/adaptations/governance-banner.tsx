@@ -30,26 +30,26 @@ export function GovernanceBanner({
   const promptCopy = useMemo(() => {
     if (selectedPromptId === "p-s2-1") {
       return {
-        title: "Warning for salary-data request",
+        title: "Sensitive HR-data request",
         message:
-          "This request touches HR data. The answer should stay at a safe summary level, avoid personal details, and keep a human reviewer involved before it is shared.",
+          "This request may involve salary information. The answer should stay broad, avoid personal details, and be reviewed before it is shared.",
         riskTag: "HR data",
         freshnessTag: "Check latest HR policy",
-        actionTitle: "Suggested safe path",
+        actionTitle: "Safer next step",
         actionBody:
-          "Use broad patterns only, avoid naming people or exact salaries, and route the final wording through HR or compliance before it is sent on.",
+          "Use broad role or band-level patterns only. Do not include names, exact salaries, or small groups. Ask HR or compliance to review the final wording before use.",
       };
     }
 
     return {
-      title: "Warning for external-sharing request",
+      title: "External-sharing request",
       message:
-        "This request may lead to internal information being shared outside the organisation. The answer should rely on approved policy sources and make the limits of sharing clear.",
+        "This request may lead to internal material being shared outside the organisation. The answer should use approved sources and make the limits clear.",
       riskTag: "External sharing",
       freshnessTag: "Check latest sharing policy",
-      actionTitle: "Suggested safe path",
+      actionTitle: "Safer next step",
       actionBody:
-        "Summarise only approved sharing conditions, keep caveats visible, and ask for policy review before the answer is used in a real external interaction.",
+        "Use only approved sharing conditions. Keep caveats visible and request policy review before the answer is used in a real external interaction.",
     };
   }, [selectedPromptId]);
 
@@ -63,10 +63,10 @@ export function GovernanceBanner({
       <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-            A09 · Sensitive request warning
+            A09 · Sensitive-request warning
           </div>
           <div className="text-[11px] text-slate-400">
-            Compare a simple warning with a warning that also offers a review step.
+            Compare a simple warning with a warning that also shows a safer next step.
           </div>
         </div>
 
@@ -115,7 +115,7 @@ export function GovernanceBanner({
             <p className="mt-2 text-sm leading-6 text-amber-50/90">{promptCopy.message}</p>
 
             <div className="mt-2 text-xs text-slate-300">
-              Current output style from the setup card: {requestedOutput}
+              Output selected in the request check: {requestedOutput}
             </div>
 
             {variant === "action" ? (
@@ -126,7 +126,7 @@ export function GovernanceBanner({
                   onClick={() => setShowActionDetails((current) => !current)}
                 >
                   <ShieldCheck className="mr-2 h-4 w-4" />
-                  {showActionDetails ? "Hide review step" : "Show review step"}
+                  {showActionDetails ? "Hide safer step" : "Show safer step"}
                 </Button>
 
                 {showActionDetails ? (

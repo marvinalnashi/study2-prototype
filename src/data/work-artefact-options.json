@@ -1,29 +1,29 @@
 {
   "intentFraming": {
     "goals": [
-      { "id": "reply-manager", "label": "Prepare a cautious response for a manager" },
-      { "id": "summarise-policy", "label": "Summarise the policy conditions clearly" },
-      { "id": "draft-review", "label": "Create a draft that still needs review" }
+      { "id": "reply-manager", "label": "Reply safely to an internal manager" },
+      { "id": "summarise-policy", "label": "Summarise the policy in plain language" },
+      { "id": "draft-review", "label": "Create a draft that needs review before use" }
     ],
     "audiences": [
       { "id": "internal-manager", "label": "Internal manager" },
-      { "id": "hr-partner", "label": "HR / compliance partner" },
+      { "id": "hr-partner", "label": "HR or compliance partner" },
       { "id": "external-vendor", "label": "External vendor contact" }
     ],
     "constraints": [
-      { "id": "aggregate-only", "label": "Use only aggregated information" },
-      { "id": "no-identifiers", "label": "Do not expose identifiable details" },
-      { "id": "policy-review", "label": "Require policy review before final use" }
+      { "id": "aggregate-only", "label": "Use only broad, non-identifiable information" },
+      { "id": "no-identifiers", "label": "Do not include names or personal details" },
+      { "id": "policy-review", "label": "Flag the answer for policy review" }
     ],
     "allowedSources": [
-      { "id": "internal-policy", "label": "Internal policy documents only" },
-      { "id": "policy-plus-hr", "label": "Policy documents plus HR guidance" },
-      { "id": "policy-plus-public", "label": "Policy documents plus public regulations" }
+      { "id": "internal-policy", "label": "Approved internal policy only" },
+      { "id": "policy-plus-hr", "label": "Approved policy plus HR guidance" },
+      { "id": "policy-plus-public", "label": "Approved policy plus public regulations" }
     ],
     "requestedOutputs": [
-      { "id": "email-draft", "label": "Cautious email draft" },
+      { "id": "email-draft", "label": "Careful email draft" },
       { "id": "bullet-summary", "label": "Bullet summary with caveats" },
-      { "id": "review-note", "label": "Escalation / review note" }
+      { "id": "review-note", "label": "Review note for the responsible team" }
     ]
   },
   "visualOptions": [
@@ -42,36 +42,36 @@
   "presentation": {
     "titleOptions": [
       { "id": "exec-summary", "label": "Executive summary" },
-      { "id": "current-status", "label": "Current status" },
+      { "id": "current-status", "label": "Current project status" },
       { "id": "risks-dependencies", "label": "Risks and dependencies" },
-      { "id": "decision-next-step", "label": "Decision and next step" },
-      { "id": "recommendation", "label": "Recommendation" },
+      { "id": "decision-next-step", "label": "Decision needed" },
+      { "id": "recommendation", "label": "Recommended next move" },
       { "id": "delivery-plan", "label": "Delivery plan" }
     ],
     "bodyOptions": [
       {
         "id": "body-summary",
-        "label": "State the overall message in one sentence and anchor the decision needed."
+        "label": "The project is on track overall, but leadership input is needed to keep scope and timing aligned."
       },
       {
         "id": "body-status",
-        "label": "Summarise current progress, what is on track, and what has shifted since the last update."
+        "label": "Core deliverables are progressing, while two dependencies need attention before the next milestone."
       },
       {
         "id": "body-risk",
-        "label": "Show the main blockers, likely impact, and what leadership should pay attention to."
+        "label": "The main risks are delayed input from stakeholders, unclear ownership, and late changes to requirements."
       },
       {
         "id": "body-decision",
-        "label": "State the decision required, owner, and expected next milestone."
+        "label": "Leadership is asked to confirm the preferred direction and assign one owner for the next phase."
       },
       {
         "id": "body-recommendation",
-        "label": "Frame the preferred course of action, assumptions, and what support is needed."
+        "label": "Continue with the current plan, but add a short weekly decision checkpoint until the risk level drops."
       },
       {
         "id": "body-plan",
-        "label": "Outline timing, responsibilities, and the sequence of follow-up actions."
+        "label": "Next steps: finalise scope, confirm owners, review open risks, and prepare the next stakeholder update."
       }
     ],
     "defaultSlides": [
@@ -83,49 +83,49 @@
   },
   "document": {
     "titleOptions": [
-      { "id": "doc-overview", "label": "Workshop overview" },
-      { "id": "doc-agenda", "label": "Agenda block" },
-      { "id": "doc-materials", "label": "Materials and setup" },
-      { "id": "doc-follow-up", "label": "Follow-up actions" },
-      { "id": "doc-note", "label": "Facilitation note" }
+      { "id": "doc-mission", "label": "Mission" },
+      { "id": "doc-vision", "label": "Vision" },
+      { "id": "doc-values", "label": "Values" },
+      { "id": "doc-priorities", "label": "First priorities" },
+      { "id": "doc-working-style", "label": "How we work" }
     ],
     "bodyOptions": [
       {
-        "id": "doc-body-overview",
-        "label": "Summarise the workshop purpose, intended audience, and the outcome participants should leave with."
+        "id": "doc-body-mission",
+        "label": "Our mission is to help teams turn complex change into clear, practical steps that people can understand and use."
       },
       {
-        "id": "doc-body-agenda",
-        "label": "Describe the activity sequence, timing, and how the transition between blocks should happen."
+        "id": "doc-body-vision",
+        "label": "Our vision is to become a trusted transformation partner that connects technology, people, and measurable business value."
       },
       {
-        "id": "doc-body-materials",
-        "label": "List the materials, room setup, and any preparation needed before the session starts."
+        "id": "doc-body-values",
+        "label": "We work with clarity, responsibility, openness, and respect for the people affected by change."
       },
       {
-        "id": "doc-body-follow-up",
-        "label": "Capture the concrete next steps, owners, and what needs to be checked after the session."
+        "id": "doc-body-priorities",
+        "label": "The first priorities are to align stakeholders, explain the change clearly, reduce uncertainty, and keep progress visible."
       },
       {
-        "id": "doc-body-note",
-        "label": "Add a facilitation cue that helps the presenter keep the audience engaged and on time."
+        "id": "doc-body-working-style",
+        "label": "We prefer short feedback loops, visible decisions, shared ownership, and practical documents that teams can reuse."
       }
     ],
     "defaultPages": [
       {
         "id": "p1",
         "blocks": [
-          { "id": "b1", "type": "text", "titleOptionId": "doc-overview", "bodyOptionId": "doc-body-overview" },
-          { "id": "b2", "type": "image", "visualId": "photo-workshop" },
-          { "id": "b3", "type": "text", "titleOptionId": "doc-agenda", "bodyOptionId": "doc-body-agenda" }
+          { "id": "b1", "type": "text", "titleOptionId": "doc-mission", "bodyOptionId": "doc-body-mission" },
+          { "id": "b2", "type": "image", "visualId": "photo-team" },
+          { "id": "b3", "type": "text", "titleOptionId": "doc-vision", "bodyOptionId": "doc-body-vision" }
         ]
       },
       {
         "id": "p2",
         "blocks": [
-          { "id": "b4", "type": "text", "titleOptionId": "doc-materials", "bodyOptionId": "doc-body-materials" },
+          { "id": "b4", "type": "text", "titleOptionId": "doc-values", "bodyOptionId": "doc-body-values" },
           { "id": "b5", "type": "image", "visualId": "checklist" },
-          { "id": "b6", "type": "text", "titleOptionId": "doc-follow-up", "bodyOptionId": "doc-body-follow-up" }
+          { "id": "b6", "type": "text", "titleOptionId": "doc-priorities", "bodyOptionId": "doc-body-priorities" }
         ]
       }
     ]
