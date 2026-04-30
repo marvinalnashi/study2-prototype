@@ -1,25 +1,25 @@
 [
   {
     "id": "s1",
-    "title": "Scenario 1 · Tailor a normal work answer",
+    "title": "Scenario 1 · Tailor a suitable response",
     "subtitle": "Compare how the same request changes for a new hire, a manager, or a specialist.",
-    "goal": "Use A02 and A03 to see whether the answer fits the audience and the amount of detail needed.",
+    "goal": "Use A02 and A03 to see whether the response fits the audience and the amount of detail needed.",
     "adaptations": ["A02", "A03"],
     "walkthroughSteps": [
-      "Choose one of the two normal work prompts.",
+      "Choose one of the two pre-made prompts.",
       "Select an audience and a detail level before sending it.",
-      "Use Next step to try the second prompt and compare the answer."
+      "Use Next step to try the second prompt and compare the response."
     ],
     "placeholderCards": [
       {
         "id": "a02",
-        "label": "A02 · Audience-aware answer",
+        "label": "A02 · Role-Aware Response Detail",
         "description": "Choose whether the reply should be written for a new hire, a manager, or a specialist.",
         "status": "implemented"
       },
       {
         "id": "a03",
-        "label": "A03 · Answer detail control",
+        "label": "A03 · Adaptive Interaction Control",
         "description": "Choose whether the next reply should be brief, balanced, step-by-step, or thorough.",
         "status": "implemented"
       },
@@ -40,51 +40,51 @@
     "walkthroughSteps": [
       "Choose one of the sensitive prompts.",
       "Review the request setup card and edit it if needed.",
-      "Send the prompt and judge whether the warning and answer feel safe and understandable."
+      "Send the prompt and judge whether the warning and response feel safe and understandable."
     ],
     "placeholderCards": [
       {
         "id": "a06",
-        "label": "A06 · Request check before answering",
+        "label": "A06 · Preflight Task Framing",
         "description": "The assistant first checks the goal, audience, limits, sources, and output type before it answers.",
         "status": "implemented"
       },
       {
         "id": "a09",
-        "label": "A09 · Sensitive-request warning",
+        "label": "A09 · Governance Banner for Sensitive Contexts",
         "description": "Compare a simple warning with a warning that also shows a safer review step.",
         "status": "implemented"
       },
       {
         "id": "embedded-a07-a14",
         "label": "Confidence and freshness cues",
-        "description": "This scenario also shows when the answer should be checked against the latest policy.",
+        "description": "This scenario also shows when the response should be checked against the latest policy.",
         "status": "implemented"
       }
     ]
   },
   {
     "id": "s3",
-    "title": "Scenario 3 · Check the evidence behind an answer",
+    "title": "Scenario 3 · Check the evidence behind a response",
     "subtitle": "Open Sources to see what the assistant used, ignored, or could not access.",
-    "goal": "Use A08 to decide whether the answer is supported well enough to trust.",
+    "goal": "Use A08 to decide whether the response is supported well enough to trust.",
     "adaptations": ["A08"],
     "walkthroughSteps": [
       "Choose one of the evidence-heavy prompts.",
-      "Send it and read the answer first.",
+      "Send it and read the response first.",
       "Open Sources and click at least one source card to inspect the details."
     ],
     "placeholderCards": [
       {
         "id": "a08",
-        "label": "A08 · Evidence register",
+        "label": "A08 · Evidence Register",
         "description": "The reply has a Sources button that opens the evidence directly inside the message.",
         "status": "implemented"
       },
       {
         "id": "embedded-a07",
         "label": "Confidence cue",
-        "description": "The evidence view shows how confident the assistant is about the answer.",
+        "description": "The evidence view shows how confident the assistant is about the response.",
         "status": "implemented"
       },
       {
@@ -99,7 +99,7 @@
     "id": "s4",
     "title": "Scenario 4 · Create an editable work output",
     "subtitle": "Receive a document or slide deck that can be edited before downloading.",
-    "goal": "Use A05 to see whether an editable output is more useful than a normal chat reply.",
+    "goal": "Use A05 to see whether an editable output is more useful than a simple chat response.",
     "adaptations": ["A05"],
     "walkthroughSteps": [
       "Choose the document prompt or the presentation prompt.",
@@ -109,7 +109,7 @@
     "placeholderCards": [
       {
         "id": "a05",
-        "label": "A05 · Work output editor",
+        "label": "A05 · Work Artefact Composer",
         "description": "The assistant creates an editable document or slide deck instead of only giving text in chat.",
         "status": "implemented"
       },

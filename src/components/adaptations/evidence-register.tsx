@@ -25,14 +25,14 @@ export function EvidenceRegister({ ledger }: { ledger: EvidenceLedger }) {
         <p className="mt-2 text-sm leading-6 text-emerald-50/90">{ledger.summary}</p>
         <div className="mt-2 flex items-center gap-2 text-xs text-slate-300">
           <Clock3 className="h-3.5 w-3.5" />
-          Confidence and freshness are shown here so the answer can be checked, not just accepted.
+          Confidence and freshness are shown here so the response can be checked, not just accepted.
         </div>
       </div>
 
       <div className="mt-3 grid gap-3 xl:grid-cols-3">
         <EvidenceColumn
           title="Used sources"
-          description="Sources that shaped the answer."
+          description="Sources that shaped the response."
           icon={<BookMarked className="h-4 w-4" />}
           tone="emerald"
           entries={ledger.used}
@@ -139,7 +139,7 @@ function EvidenceEntryModal({
   onClose: () => void;
 }) {
   const excerptHeading = useMemo(() => {
-    if (status === "used") return "Text used in the answer";
+    if (status === "used") return "Text used in the response";
     if (status === "omitted") return "Text that was rejected";
     return null;
   }, [status]);

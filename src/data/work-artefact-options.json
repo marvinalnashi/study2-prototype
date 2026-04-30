@@ -13,7 +13,7 @@
     "constraints": [
       { "id": "aggregate-only", "label": "Use only broad, non-identifiable information" },
       { "id": "no-identifiers", "label": "Do not include names or personal details" },
-      { "id": "policy-review", "label": "Flag the answer for policy review" }
+      { "id": "policy-review", "label": "Flag the response for policy review" }
     ],
     "allowedSources": [
       { "id": "internal-policy", "label": "Approved internal policy only" },

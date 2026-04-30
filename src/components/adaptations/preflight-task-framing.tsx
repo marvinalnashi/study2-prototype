@@ -62,7 +62,7 @@ export function PreflightTaskFraming({
         <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-emerald-400/15 bg-emerald-500/8 px-3 py-2 text-xs text-emerald-100">
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4" />
-            The assistant will use this setup for the sensitive answer.
+            The assistant will use this setup for the sensitive response.
           </div>
           <Button type="button" variant="outline" onClick={onOpenEditor}>
             <SquarePen className="mr-2 h-4 w-4" />

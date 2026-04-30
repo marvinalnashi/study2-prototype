@@ -48,12 +48,12 @@ function applyRoleAwareFraming({
 }) {
   const levelLine =
     level === "brief"
-      ? "Answer style: brief and easy to scan."
+      ? "Response style: brief and easy to scan."
       : level === "guided"
-        ? "Answer style: step-by-step guidance."
+        ? "Response style: step-by-step guidance."
         : level === "audit"
-          ? "Answer style: thorough, with more reasoning and traceability."
-          : "Answer style: balanced everyday explanation.";
+          ? "Response style: thorough, with more reasoning and traceability."
+          : "Response style: balanced everyday explanation.";
 
   if (rolePersona === "manager") {
     return `Tailored for: Manager\n${levelLine}\n\n${base}\n\nManager focus: use this to discuss business impact, risk, and the next decision rather than the technical details.`;
@@ -218,15 +218,13 @@ function buildEvidenceHeavyResponse(promptId: string) {
   if (promptId === "p-s3-1") {
     return {
       content: [
-        "Working answer",
-        "",
         "The latest accessibility obligation is likely relevant for the customer portal, but this should still be checked against the organisation’s exact scope and the latest legal interpretation.",
         "",
-        "The answer is based on three useful sources. The internal accessibility policy says customer-facing web journeys must be reviewed before release approval. The public regulation summary says the obligation applies to organisations in the covered market segment, depending on sector and size. The implementation checklist explains what teams should do next: log findings, assign owners, and review fixes before release.",
+        "The response is based on three useful sources. The internal accessibility policy says customer-facing web journeys must be reviewed before release approval. The public regulation summary says the obligation applies to organisations in the covered market segment, depending on sector and size. The implementation checklist explains what teams should do next: log findings, assign owners, and review fixes before release.",
         "",
         "I did not rely on every source that was found. One older checklist was left out because it uses outdated wording. One blog-style source was left out because it overstates the rule. One legal memo could not be opened in this prototype path.",
         "",
-        "Open Sources to inspect the exact fragments behind this answer.",
+        "Open Sources to inspect the exact fragments behind this response.",
       ].join("\n"),
       meta: "Evidence-heavy reply · Confidence and freshness are shown inside Sources.",
     };
@@ -234,8 +232,6 @@ function buildEvidenceHeavyResponse(promptId: string) {
 
   return {
     content: [
-      "Working answer",
-      "",
       "The two policy summaries are mostly aligned. They describe the same basic rule, but they place emphasis on different parts of the process.",
       "",
       "Summary A is more explicit about team-lead approval before external sharing. Summary B focuses more on documenting the reason for disclosure after approval is logged. In practice, both point to the same action: external sharing should happen only after the right approval and documentation steps are complete.",
@@ -413,7 +409,7 @@ export const studyPrototypeMachine = setup({
           prompt.scenarioId === "s1"
             ? `Audience used: ${roleLabel} · Detail level: ${levelLabel}`
             : prompt.scenarioId === "s4"
-              ? "A05 work output editor"
+              ? "A05 work artefact composer"
               : response.meta,
       };
 

@@ -55,13 +55,13 @@ export function Study2Prototype() {
 
   const introDescription = useMemo(() => {
     if (state.context.scenarioId === "s1") {
-      return "Choose an audience and detail level, then send one of the normal work prompts.";
+      return "Choose an audience and detail level, then send one of the pre-made prompts.";
     }
     if (state.context.scenarioId === "s2") {
       return "Check the request setup and warning before sending a sensitive prompt.";
     }
     if (state.context.scenarioId === "s3") {
-      return "Send an evidence-heavy prompt, then open Sources to inspect the answer.";
+      return "Send an evidence-heavy prompt, then open Sources to inspect the response.";
     }
     if (state.context.scenarioId === "s4") {
       return "Send a prompt to open an editable work output inside the conversation.";

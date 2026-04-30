@@ -32,7 +32,7 @@ export function GovernanceBanner({
       return {
         title: "Sensitive HR-data request",
         message:
-          "This request may involve salary information. The answer should stay broad, avoid personal details, and be reviewed before it is shared.",
+          "This request may involve salary information. The response should stay broad, avoid personal details, and be reviewed before it is shared.",
         riskTag: "HR data",
         freshnessTag: "Check latest HR policy",
         actionTitle: "Safer next step",
@@ -44,12 +44,12 @@ export function GovernanceBanner({
     return {
       title: "External-sharing request",
       message:
-        "This request may lead to internal material being shared outside the organisation. The answer should use approved sources and make the limits clear.",
+        "This request may lead to internal material being shared outside the organisation. The response should use approved sources and make the limits clear.",
       riskTag: "External sharing",
       freshnessTag: "Check latest sharing policy",
       actionTitle: "Safer next step",
       actionBody:
-        "Use only approved sharing conditions. Keep caveats visible and request policy review before the answer is used in a real external interaction.",
+        "Use only approved sharing conditions. Keep caveats visible and request policy review before the response is used in a real external interaction.",
     };
   }, [selectedPromptId]);
 

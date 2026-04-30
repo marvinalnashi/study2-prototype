@@ -4,7 +4,7 @@ export const evidenceLedgerMap: Record<string, EvidenceLedger> = {
   "p-s3-1": {
     title: "Evidence for the current accessibility obligation",
     summary:
-      "This answer depends on recent policy wording, internal interpretation, and whether the organisation falls inside the relevant obligation scope.",
+      "This response depends on recent policy wording, internal interpretation, and whether the organisation falls inside the relevant obligation scope.",
     confidence: "Medium (72%)",
     freshness: "2 sources current · 1 source older than 12 months",
     used: [

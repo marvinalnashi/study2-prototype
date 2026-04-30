@@ -1,8 +1,8 @@
 [
   {
     "scenarioId": "s1",
-    "primaryTest": "Main focus: does the answer fit the audience?",
-    "secondaryTest": "Also compare the four answer-detail options."
+    "primaryTest": "Main focus: does the response fit the role?",
+    "secondaryTest": "Also compare the four response-detail options."
   },
   {
     "scenarioId": "s2",
@@ -11,12 +11,12 @@
   },
   {
     "scenarioId": "s3",
-    "primaryTest": "Main focus: do the sources make the answer easier to judge?",
+    "primaryTest": "Main focus: do the sources make the response easier to judge?",
     "secondaryTest": "Confidence and freshness are shown inside the Sources view."
   },
   {
     "scenarioId": "s4",
-    "primaryTest": "Main focus: is an editable output more useful than a normal chat reply?",
+    "primaryTest": "Main focus: is an editable output more useful than a simple chat response?",
     "secondaryTest": "Compare the document editor and the presentation editor."
   }
 ]

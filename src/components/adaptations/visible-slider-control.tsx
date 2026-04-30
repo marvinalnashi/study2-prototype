@@ -15,9 +15,9 @@ export function VisibleSliderControl({
     <div className="rounded-xl border border-white/10 bg-white/5 p-3">
       <div className="mb-2 flex items-center justify-between gap-3">
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
-          A03 · Answer detail
+          A03 · Response detail
         </div>
-        <div className="text-[11px] text-slate-400">Choose how much detail the next answer should contain.</div>
+        <div className="text-[11px] text-slate-400">Choose how much detail the next response should contain.</div>
       </div>
 
       <div className="relative mb-2 px-1">

@@ -17,7 +17,7 @@ export function RoleAwareResponseDetail({
         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-200">
           A02 · Audience
         </div>
-        <div className="text-[11px] text-slate-400">Choose who the next answer should be written for.</div>
+        <div className="text-[11px] text-slate-400">Choose who the next response should be written for.</div>
       </div>
 
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">

@@ -43,10 +43,10 @@
     "id": "p-s3-1",
     "scenarioId": "s3",
     "label": "S3 · Decide whether a new accessibility rule applies",
-    "caseText": "You are preparing advice for a product team that owns a customer portal. The participant should decide whether the assistant gives enough evidence to trust the answer.",
-    "prompt": "Find evidence for whether the latest accessibility obligation applies to our customer portal and show how trustworthy the answer is.",
+    "caseText": "You are preparing advice for a product team that owns a customer portal. The participant should decide whether the assistant gives enough evidence to trust the response.",
+    "prompt": "Find evidence for whether the latest accessibility obligation applies to our customer portal and show how trustworthy the response is.",
     "responses": {
-      "standard": "The latest accessibility obligation is likely relevant for the customer portal, but the final decision still depends on the organisation’s exact scope and the type of digital service offered.\n\nThe strongest evidence points in the same direction:\n• The internal accessibility policy says customer-facing web journeys in scope must be reviewed before release approval.\n• The public regulation summary says the obligation applies to organisations in the covered market segment, subject to sector and size conditions.\n• The implementation checklist translates that obligation into concrete work: log unresolved findings, assign owners, and review fixes before the next release.\n\nThis answer is useful as a working conclusion, not as final legal advice. One older checklist was left out because it uses outdated wording, one blog-style source was left out because it overstates the rule, and one legal memo could not be opened in this prototype path.\n\nOpen Sources to inspect the exact fragments behind this answer."
+      "standard": "The latest accessibility obligation is likely relevant for the customer portal, but the final decision still depends on the organisation’s exact scope and the type of digital service offered.\n\nThe strongest evidence points in the same direction:\n• The internal accessibility policy says customer-facing web journeys in scope must be reviewed before release approval.\n• The public regulation summary says the obligation applies to organisations in the covered market segment, subject to sector and size conditions.\n• The implementation checklist translates that obligation into concrete work: log unresolved findings, assign owners, and review fixes before the next release.\n\nThis response is useful as a working conclusion, not as final legal advice. One older checklist was left out because it uses outdated wording, one blog-style source was left out because it overstates the rule, and one legal memo could not be opened in this prototype path.\n\nOpen Sources to inspect the exact fragments behind this answer."
     }
   },
   {
@@ -63,7 +63,7 @@
     "id": "p-s4-1",
     "scenarioId": "s4",
     "label": "S4 · Create a mission, vision, and values document",
-    "caseText": "You are preparing an internal onboarding document for a new transformation team. The participant should imagine they want a first editable draft rather than a normal chat answer.",
+    "caseText": "You are preparing an internal onboarding document for a new transformation team. The participant should imagine they want a first editable draft rather than a simple chat response.",
     "prompt": "Create an editable internal document that explains the team’s mission, vision, values, and first priorities.",
     "artefactKind": "document"
   },
